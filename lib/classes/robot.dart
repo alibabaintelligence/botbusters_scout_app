@@ -1,4 +1,4 @@
-class Robot {
+class RobotMatch {
   final String id;
   final int teamNumber;
   final int matchNumber;
@@ -12,16 +12,16 @@ class Robot {
   final int teleopTopScored;
   final int teleopMiddleScored;
   final int teleopBottomScored;
-  final int teleopLinksScored;
   final bool coopBonus;
   final bool wasDefended;
   final String floorPickupId;
-  final int dockingTimer;
+  final int? dockingTimer;
   final String finalStatusId;
-  final int allianceRobots;
+  final int? allianceRobots;
   final String driverSkillId;
+  final String chasis;
   final int speedRating;
-  final bool missedPieces;
+  final int missedPieces;
   final bool died;
   final bool tippy;
   final bool errorFoul;
@@ -32,7 +32,7 @@ class Robot {
   final String scoutName;
   final DateTime dateTimeCreated;
 
-  Robot({
+  RobotMatch({
     required this.id,
     required this.teamNumber,
     required this.matchNumber,
@@ -46,7 +46,6 @@ class Robot {
     required this.teleopTopScored,
     required this.teleopMiddleScored,
     required this.teleopBottomScored,
-    required this.teleopLinksScored,
     required this.coopBonus,
     required this.wasDefended,
     required this.floorPickupId,
@@ -54,6 +53,7 @@ class Robot {
     required this.finalStatusId,
     required this.allianceRobots,
     required this.driverSkillId,
+    required this.chasis,
     required this.speedRating,
     required this.missedPieces,
     required this.died,
@@ -82,7 +82,6 @@ class Robot {
       'teleopTopScored': teleopTopScored,
       'teleopMiddleScored': teleopMiddleScored,
       'teleopBottomScored': teleopBottomScored,
-      'teleopLinksScored': teleopLinksScored,
       'coopBonus': coopBonus ? 1 : 0,
       'wasDefended': wasDefended ? 1 : 0,
       'floorPickupId': floorPickupId,
@@ -91,7 +90,8 @@ class Robot {
       'allianceRobots': allianceRobots,
       'driverSkillId': driverSkillId,
       'speedRating': speedRating,
-      'missedPieces': missedPieces ? 1 : 0,
+      'chasis': chasis,
+      'missedPieces': missedPieces,
       'died': died ? 1 : 0,
       'tippy': tippy ? 1 : 0,
       'errorFoul': errorFoul ? 1 : 0,

@@ -47,7 +47,6 @@ class _SendScreenState extends State<SendScreen> {
   int _teleopTopScored = 0;
   int _teleopMiddleScored = 0;
   int _teleopBottomScored = 0;
-  int _teleopLinksScored = 0;
 
   bool _coopBonus = false;
   bool _wasDefended = false;
@@ -64,9 +63,11 @@ class _SendScreenState extends State<SendScreen> {
   // Extras
   String _driverSkillId = 'notObs';
 
+  final _chasisController = TextEditingController();
+
   int _speedRating = 0;
 
-  bool _missedPieces = false;
+  int _missedPieces = 0;
   bool _died = false;
   bool _tippy = false;
   bool _errorFoul = false;
@@ -87,7 +88,7 @@ class _SendScreenState extends State<SendScreen> {
   void didChangeDependencies() {
     if (_firstTimeRunning) {
       final editRobotData =
-          ModalRoute.of(context)?.settings.arguments as Robot?;
+          ModalRoute.of(context)?.settings.arguments as RobotMatch?;
 
       if (editRobotData != null) {
         // Normal
@@ -107,15 +108,14 @@ class _SendScreenState extends State<SendScreen> {
         _teleopTopScored = editRobotData.teleopTopScored;
         _teleopMiddleScored = editRobotData.teleopMiddleScored;
         _teleopBottomScored = editRobotData.teleopBottomScored;
-        _teleopLinksScored = editRobotData.teleopLinksScored;
         _coopBonus = editRobotData.coopBonus;
         _wasDefended = editRobotData.wasDefended;
         _floorPickupId = editRobotData.floorPickupId;
 
         // Endgame
-        _dockingTimer = editRobotData.dockingTimer;
+        _dockingTimer = editRobotData.dockingTimer ?? 0;
         _finalStatusId = editRobotData.finalStatusId;
-        _allianceRobots = editRobotData.allianceRobots;
+        _allianceRobots = editRobotData.allianceRobots ?? 0;
 
         // Extras
         _driverSkillId = editRobotData.driverSkillId;
@@ -142,12 +142,29 @@ class _SendScreenState extends State<SendScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Send'),
+        title: const Text(
+          'Send',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: const Icon(
+            CupertinoIcons.back,
+            color: Colors.red,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: const Color.fromARGB(255, 45, 45, 45),
+        elevation: 5,
       ),
       body: SafeArea(
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,8 +274,8 @@ class _SendScreenState extends State<SendScreen> {
                           _leftCommunity = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -293,10 +310,13 @@ class _SendScreenState extends State<SendScreen> {
                       onToggle: (newValue) {
                         setState(() {
                           _docked = newValue;
+                          if (_docked) {
+                            _engaged = false;
+                          }
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -331,10 +351,13 @@ class _SendScreenState extends State<SendScreen> {
                       onToggle: (newValue) {
                         setState(() {
                           _engaged = newValue;
+                          if (_engaged) {
+                            _docked = false;
+                          }
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -435,27 +458,6 @@ class _SendScreenState extends State<SendScreen> {
                 const SizedBox(height: 15),
                 Row(
                   children: [
-                    const Text(
-                      'Links Scored',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Spacer(),
-                    CoolCounter(
-                      max: 9999,
-                      min: 0,
-                      value: _teleopLinksScored,
-                      whenChanged: (newValue) {
-                        _teleopLinksScored = newValue;
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  children: [
                     FlutterSwitch(
                       value: _coopBonus,
                       onToggle: (newValue) {
@@ -463,8 +465,8 @@ class _SendScreenState extends State<SendScreen> {
                           _coopBonus = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -501,8 +503,8 @@ class _SendScreenState extends State<SendScreen> {
                           _wasDefended = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -553,27 +555,6 @@ class _SendScreenState extends State<SendScreen> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                Row(
-                  children: [
-                    const Text(
-                      'Docking Timer',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Spacer(),
-                    CoolCounter(
-                      max: 9999,
-                      min: 0,
-                      value: _dockingTimer,
-                      whenChanged: (newValue) {
-                        _dockingTimer = newValue;
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
                 const Text(
                   'Final Status',
                   style: TextStyle(
@@ -585,30 +566,63 @@ class _SendScreenState extends State<SendScreen> {
                 FinalStatusButtons(
                   finalStatusId: _finalStatusId,
                   onButtonPressed: (newId) {
-                    _finalStatusId = newId;
+                    setState(() {
+                      _finalStatusId = newId;
+                    });
                   },
                 ),
-                const SizedBox(height: 15),
-                Row(
-                  children: [
-                    const Text(
-                      'Alliance Robots\nDocked/Engaged',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                if (_finalStatusId == 'docked' || _finalStatusId == 'engaged')
+                  Column(
+                    children: [
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          const Text(
+                            'Docking Timer',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Spacer(),
+                          CoolCounter(
+                            max: 9999,
+                            min: 0,
+                            value: _dockingTimer,
+                            whenChanged: (newValue) {
+                              _dockingTimer = newValue;
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    const Spacer(),
-                    CoolCounter(
-                      max: 9999,
-                      min: 0,
-                      value: _allianceRobots,
-                      whenChanged: (newValue) {
-                        _allianceRobots = newValue;
-                      },
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                if (_finalStatusId == 'docked' || _finalStatusId == 'engaged')
+                  Column(
+                    children: [
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          const Text(
+                            'Alliance Robots\nDocked/Engaged',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Spacer(),
+                          CoolCounter(
+                            max: 3,
+                            min: 0,
+                            value: _allianceRobots,
+                            whenChanged: (newValue) {
+                              _allianceRobots = newValue;
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 const SizedBox(height: 35),
                 const Text(
                   'Extras',
@@ -617,7 +631,7 @@ class _SendScreenState extends State<SendScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 const Text(
                   'Driver Skill',
                   style: TextStyle(
@@ -632,7 +646,7 @@ class _SendScreenState extends State<SendScreen> {
                     _driverSkillId = newId;
                   },
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 const Text(
                   'Speed Rating',
                   style: TextStyle(
@@ -651,42 +665,64 @@ class _SendScreenState extends State<SendScreen> {
                   max: 10,
                   min: 0,
                   divisions: 10,
+                  inactiveColor: Colors.grey.shade800,
+                  activeColor: const Color.fromARGB(255, 255, 0, 43),
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  'Chasis',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13),
+                    color: const Color.fromARGB(255, 64, 64, 64),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 15,
+                  ),
+                  child: TextFormField(
+                    controller: _chasisController,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'Type here...',
+                    ),
+                    buildCounter: (
+                      context, {
+                      required int currentLength,
+                      required bool isFocused,
+                      required int? maxLength,
+                    }) =>
+                        null,
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                    maxLength: 30,
+                    maxLines: 1,
+                  ),
                 ),
                 const SizedBox(height: 15),
                 Row(
                   children: [
-                    FlutterSwitch(
-                      value: _missedPieces,
-                      onToggle: (newValue) {
-                        setState(() {
-                          _missedPieces = newValue;
-                        });
-                      },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
-                      borderRadius: 12,
-                      width: 47,
-                      height: 27,
-                      toggleSize: 16,
-                      // iq 150 papu, pa que no se corra el toggle del switch le pongo
-                      // un border del color verde, y así se ve más pequeño
-                      activeToggleBorder: Border.all(
-                        color: const Color.fromRGBO(0, 220, 167, 1.0),
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignInside,
-                      ),
-                      inactiveToggleBorder: Border.all(
-                        color: const Color.fromRGBO(200, 200, 200, 1.0),
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignInside,
-                      ),
-                    ),
-                    const SizedBox(width: 30),
                     const Text(
                       'Missed Pieces',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
+                    ),
+                    const Spacer(),
+                    CoolCounter(
+                      max: 9999,
+                      min: 0,
+                      value: _missedPieces,
+                      whenChanged: (newValue) {
+                        _missedPieces = newValue;
+                      },
                     ),
                   ],
                 ),
@@ -700,8 +736,8 @@ class _SendScreenState extends State<SendScreen> {
                           _died = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -738,8 +774,8 @@ class _SendScreenState extends State<SendScreen> {
                           _tippy = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -776,8 +812,8 @@ class _SendScreenState extends State<SendScreen> {
                           _errorFoul = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -814,8 +850,8 @@ class _SendScreenState extends State<SendScreen> {
                           _mechFail = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -852,8 +888,8 @@ class _SendScreenState extends State<SendScreen> {
                           _defense = newValue;
                         });
                       },
-                      activeColor: const Color.fromRGBO(0, 220, 167, 1.0),
-                      inactiveColor: const Color.fromRGBO(200, 200, 200, 1.0),
+                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
                       borderRadius: 12,
                       width: 47,
                       height: 27,
@@ -880,7 +916,7 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 const Text(
                   'Comments',
                   style: TextStyle(
@@ -892,7 +928,7 @@ class _SendScreenState extends State<SendScreen> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
-                    color: const Color.fromARGB(255, 239, 239, 239),
+                    color: const Color.fromARGB(255, 64, 64, 64),
                   ),
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
@@ -911,14 +947,13 @@ class _SendScreenState extends State<SendScreen> {
                     }) =>
                         null,
                     style: const TextStyle(
-                      color: Colors.black87,
                       fontSize: 16,
                     ),
                     maxLength: 100,
                     maxLines: 5,
                   ),
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 30),
                 CupertinoButton(
                   onPressed: _isLoading
                       ? null
@@ -935,8 +970,12 @@ class _SendScreenState extends State<SendScreen> {
                             listen: false,
                           );
 
-                          final robot = Robot(
-                            id: '${scoutDataProvider.scoutUser!.id}$_allianceId$_floorPickupId$_finalStatusId$_driverSkillId$_autoTopScored',
+                          final bool teleopDockedOrEngaged =
+                              _finalStatusId == 'docked' ||
+                                  _finalStatusId == 'engaged';
+
+                          final robot = RobotMatch(
+                            id: '${scoutDataProvider.scoutUser!.id}$_allianceId$_finalStatusId$_driverSkillId$_autoTopScored${DateTime.now().toString()}',
                             teamNumber:
                                 int.tryParse(_teamNumberController.text) ?? 0,
                             matchNumber:
@@ -951,14 +990,16 @@ class _SendScreenState extends State<SendScreen> {
                             teleopTopScored: _teleopTopScored,
                             teleopMiddleScored: _teleopMiddleScored,
                             teleopBottomScored: _teleopBottomScored,
-                            teleopLinksScored: _teleopLinksScored,
                             coopBonus: _coopBonus,
                             wasDefended: _wasDefended,
                             floorPickupId: _floorPickupId,
-                            dockingTimer: _dockingTimer,
+                            dockingTimer:
+                                teleopDockedOrEngaged ? _dockingTimer : null,
                             finalStatusId: _finalStatusId,
-                            allianceRobots: _allianceRobots,
+                            allianceRobots:
+                                teleopDockedOrEngaged ? _allianceRobots : null,
                             driverSkillId: _driverSkillId,
+                            chasis: _chasisController.text,
                             speedRating: _speedRating,
                             missedPieces: _missedPieces,
                             died: _died,
@@ -1005,8 +1046,8 @@ class _SendScreenState extends State<SendScreen> {
                     height: 50,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
-                      color: const Color.fromARGB(255, 255, 0, 0),
+                      borderRadius: BorderRadius.circular(13.0),
+                      color: const Color.fromARGB(255, 255, 0, 43),
                     ),
                     child: _isLoading
                         ? const CupertinoActivityIndicator()
@@ -1014,9 +1055,11 @@ class _SendScreenState extends State<SendScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: const [
                               Text(
-                                'Send',
+                                'Generate QR',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Inter',
                                 ),
                               ),
                             ],

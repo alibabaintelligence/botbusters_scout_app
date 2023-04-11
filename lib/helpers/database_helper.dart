@@ -4,7 +4,7 @@ import 'package:path/path.dart' as p;
 import '../classes/robot.dart';
 
 abstract class DBHelper {
-  static Future<void> addRobot(Robot robot) async {
+  static Future<void> addRobot(RobotMatch robot) async {
     final database = await initDatabase();
 
     await database.insert(
@@ -14,7 +14,7 @@ abstract class DBHelper {
     );
   }
 
-  static Future<void> editRobot(Robot robot, String previousId) async {
+  static Future<void> editRobot(RobotMatch robot, String previousId) async {
     final database = await initDatabase();
 
     await database.update(
@@ -23,6 +23,16 @@ abstract class DBHelper {
       where: 'id = ?',
       whereArgs: [previousId],
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<void> deleteRobot(RobotMatch robot) async {
+    final database = await initDatabase();
+
+    await database.delete(
+      'robots',
+      where: 'id = ?',
+      whereArgs: [robot.id],
     );
   }
 
@@ -53,7 +63,6 @@ abstract class DBHelper {
             teleopTopScored INTEGER,
             teleopMiddleScored INTEGER,
             teleopBottomScored INTEGER,
-            teleopLinksScored INTEGER,
             coopBonus BOOLEAN,
             wasDefended BOOLEAN,
             floorPickupId TEXT,
@@ -62,7 +71,8 @@ abstract class DBHelper {
             allianceRobots INTEGER,
             driverSkillId TEXT,
             speedRating INTEGER,
-            missedPieces BOOLEAN,
+            chasis TEXT,
+            missedPieces INTEGER,
             died BOOLEAN,
             tippy BOOLEAN,
             errorFoul BOOLEAN,

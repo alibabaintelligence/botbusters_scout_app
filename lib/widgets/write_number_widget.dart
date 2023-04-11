@@ -29,7 +29,7 @@ class WriteNumberWidget extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
-            color: const Color.fromARGB(255, 239, 239, 239),
+            color: const Color.fromRGBO(64, 64, 64, 1.0),
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 10,
@@ -50,7 +50,7 @@ class WriteNumberWidget extends StatelessWidget {
               }) =>
                   null,
               style: const TextStyle(
-                color: Colors.black87,
+                color: Colors.white70,
                 fontSize: 16,
               ),
               maxLength: 5,

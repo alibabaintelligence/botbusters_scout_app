@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import '../classes/robot.dart';
 
 class RobotsProvider with ChangeNotifier {
-  List<Robot> _robots = [];
+  List<RobotMatch> _robots = [];
 
-  List<Robot> get robots => [..._robots];
+  List<RobotMatch> get robots => [..._robots];
 
-  Future<void> addRobot(Robot robot) async {
+  Future<void> addRobot(RobotMatch robot) async {
     await DBHelper.addRobot(robot);
     _robots.add(robot);
     notifyListeners();
   }
 
-  Future<void> editRobot(Robot newRobot, String previousId) async {
+  Future<void> editRobot(RobotMatch newRobot, String previousId) async {
     await DBHelper.editRobot(newRobot, previousId);
     final previousRobot = _robots.firstWhere((rob) => rob.id == previousId);
 
@@ -29,7 +29,7 @@ class RobotsProvider with ChangeNotifier {
 
     _robots = robotsDataList
         .map(
-          (robotMap) => Robot(
+          (robotMap) => RobotMatch(
             id: robotMap['id'],
             teamNumber: robotMap['teamNumber'],
             matchNumber: robotMap['matchNumber'],
@@ -43,7 +43,6 @@ class RobotsProvider with ChangeNotifier {
             teleopTopScored: robotMap['teleopTopScored'],
             teleopMiddleScored: robotMap['teleopMiddleScored'],
             teleopBottomScored: robotMap['teleopBottomScored'],
-            teleopLinksScored: robotMap['teleopLinksScored'],
             coopBonus: robotMap['coopBonus'] == 0 ? false : true,
             wasDefended: robotMap['wasDefended'] == 0 ? false : true,
             floorPickupId: robotMap['floorPickupId'],
@@ -51,8 +50,10 @@ class RobotsProvider with ChangeNotifier {
             finalStatusId: robotMap['finalStatusId'],
             allianceRobots: robotMap['allianceRobots'],
             driverSkillId: robotMap['driverSkillId'],
+            chasis: robotMap['chasis'],
             speedRating: robotMap['speedRating'],
-            missedPieces: robotMap['missedPieces'] == 0 ? false : true,
+            missedPieces:
+                robotMap['missedPieces'], // ! WE CHANGED FROM BOOL TO INT
             died: robotMap['died'] == 0 ? false : true,
             tippy: robotMap['tippy'] == 0 ? false : true,
             errorFoul: robotMap['errorFoul'] == 0 ? false : true,

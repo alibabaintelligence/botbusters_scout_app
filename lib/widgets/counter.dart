@@ -45,6 +45,7 @@ class _CoolCounterState extends State<CoolCounter> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CupertinoButton(
           onPressed: () {
@@ -56,20 +57,25 @@ class _CoolCounterState extends State<CoolCounter> {
               widget.whenChanged(value);
             }
           },
+          padding: EdgeInsets.zero,
           child: Container(
-            height: 18,
-            width: 20,
             decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(13),
+              color: Colors.blue.shade400.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(CupertinoIcons.minus),
+            padding: const EdgeInsets.all(2.0),
+            child: Icon(
+              CupertinoIcons.minus,
+              color: Colors.blue.shade100,
+            ),
           ),
         ),
         Container(
-          height: 18,
-          width: 20,
-          color: Colors.grey,
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(64, 64, 64, 1.0),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
           child: IntrinsicWidth(
             child: TextFormField(
               controller: _counterController,
@@ -85,7 +91,7 @@ class _CoolCounterState extends State<CoolCounter> {
               }) =>
                   null,
               style: const TextStyle(
-                color: Colors.black87,
+                color: Colors.white70,
                 fontSize: 16,
               ),
               maxLength: 4,
@@ -138,14 +144,17 @@ class _CoolCounterState extends State<CoolCounter> {
               });
             }
           },
+          padding: EdgeInsets.zero,
           child: Container(
-            height: 18,
-            width: 20,
             decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(13),
+              color: Colors.greenAccent.shade400.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(CupertinoIcons.add),
+            padding: const EdgeInsets.all(2.0),
+            child: Icon(
+              CupertinoIcons.add,
+              color: Colors.greenAccent.shade100,
+            ),
           ),
         ),
       ],

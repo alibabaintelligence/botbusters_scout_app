@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FloorPickupButtons extends StatefulWidget {
   const FloorPickupButtons({
@@ -43,24 +44,20 @@ class _FloorPickupState extends State<FloorPickupButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: floorPickupId == 'cones'
-                  ? const Color.fromARGB(255, 255, 242, 175)
-                  : const Color.fromARGB(255, 239, 239, 239),
+                  ? const Color.fromARGB(255, 97, 98, 41)
+                  : const Color.fromARGB(255, 64, 64, 64),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'V',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 214, 0),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 30,
-                  ),
-                ),
-                Text(
+              children: [
+                SvgPicture.asset('assets/svgs/floorPickup/cones.svg'),
+                const SizedBox(height: 6),
+                const Text(
                   'Cones',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: 'Inter',
                   ),
                 ),
               ],
@@ -83,24 +80,20 @@ class _FloorPickupState extends State<FloorPickupButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: floorPickupId == 'cubes'
-                  ? const Color.fromARGB(255, 237, 199, 255)
-                  : const Color.fromARGB(255, 239, 239, 239),
+                  ? const Color.fromARGB(255, 81, 43, 118)
+                  : const Color.fromARGB(255, 64, 64, 64),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'O',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 173, 0, 255),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 30,
-                  ),
-                ),
-                Text(
+              children: [
+                SvgPicture.asset('assets/svgs/floorPickup/cubes.svg'),
+                const SizedBox(height: 6),
+                const Text(
                   'Cubes',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: 'Inter',
                   ),
                 ),
               ],
@@ -123,24 +116,20 @@ class _FloorPickupState extends State<FloorPickupButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: floorPickupId == 'both'
-                  ? const Color.fromARGB(255, 169, 255, 187)
-                  : const Color.fromARGB(255, 239, 239, 239),
+                  ? Color.fromARGB(255, 148, 28, 48)
+                  : const Color.fromARGB(255, 64, 64, 64),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'VO',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 213, 47),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 30,
-                  ),
-                ),
-                Text(
+              children: [
+                SvgPicture.asset('assets/svgs/floorPickup/both.svg'),
+                const SizedBox(height: 6),
+                const Text(
                   'Both',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: 'Inter',
                   ),
                 ),
               ],
@@ -163,24 +152,20 @@ class _FloorPickupState extends State<FloorPickupButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: floorPickupId == 'none'
-                  ? const Color.fromARGB(255, 208, 208, 208)
-                  : const Color.fromARGB(255, 239, 239, 239),
+                  ? const Color.fromARGB(255, 90, 90, 90)
+                  : const Color.fromARGB(255, 64, 64, 64),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'X',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 66, 66, 66),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 30,
-                  ),
-                ),
-                Text(
+              children: [
+                SvgPicture.asset('assets/svgs/x.svg'),
+                const SizedBox(height: 6),
+                const Text(
                   'None',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: 'Inter',
                   ),
                 ),
               ],

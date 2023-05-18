@@ -74,6 +74,8 @@ flutter:
   assets:
     - assets\imgs\botbusters_logo.png
     - assets\imgs\prepatec_garzasada_logo.png
+    - assets\imgs\field.png
+    - assets\imgs\substations.png
     # SVGs
     - assets\svgs\x.svg
     # Driver Skill

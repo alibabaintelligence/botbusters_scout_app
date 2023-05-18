@@ -56,12 +56,17 @@ class _SeeScreenState extends State<SeeScreen> {
                 );
               }
 
+              final sortedRobots = robotsProvider.robots
+                ..sort(
+                  (a, b) => a.matchNumber.compareTo(b.matchNumber),
+                );
+
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(16.0),
-                itemCount: robotsProvider.robots.length,
+                itemCount: sortedRobots.length,
                 itemBuilder: (ctx, i) {
-                  final robotMatch = robotsProvider.robots[i];
+                  final robotMatch = sortedRobots[i];
 
                   final color = robotMatch.allianceId.characters.first == 'r'
                       ? const Color.fromARGB(255, 255, 0, 51)

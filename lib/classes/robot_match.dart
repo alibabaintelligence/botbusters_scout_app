@@ -3,6 +3,7 @@ class RobotMatch {
   final int teamNumber;
   final int matchNumber;
   final String allianceId;
+  final String autoPositionId;
   final int autoTopScored;
   final int autoMiddleScored;
   final int autoBottomScored;
@@ -12,14 +13,14 @@ class RobotMatch {
   final int teleopTopScored;
   final int teleopMiddleScored;
   final int teleopBottomScored;
+  final bool takingMoreFromDoubleSubstation;
   final bool coopBonus;
   final bool wasDefended;
   final String floorPickupId;
-  final int? dockingTimer;
   final String finalStatusId;
+  final int? dockingTimer;
   final int? allianceRobots;
   final String driverSkillId;
-  final String chasis;
   final int speedRating;
   final int missedPieces;
   final bool died;
@@ -37,6 +38,7 @@ class RobotMatch {
     required this.teamNumber,
     required this.matchNumber,
     required this.allianceId,
+    required this.autoPositionId,
     required this.autoTopScored,
     required this.autoMiddleScored,
     required this.autoBottomScored,
@@ -46,14 +48,14 @@ class RobotMatch {
     required this.teleopTopScored,
     required this.teleopMiddleScored,
     required this.teleopBottomScored,
+    required this.takingMoreFromDoubleSubstation,
     required this.coopBonus,
     required this.wasDefended,
     required this.floorPickupId,
-    required this.dockingTimer,
     required this.finalStatusId,
+    required this.dockingTimer,
     required this.allianceRobots,
     required this.driverSkillId,
-    required this.chasis,
     required this.speedRating,
     required this.missedPieces,
     required this.died,
@@ -73,6 +75,7 @@ class RobotMatch {
       'teamNumber': teamNumber,
       'matchNumber': matchNumber,
       'allianceId': allianceId,
+      'autoPositionId': autoPositionId,
       'autoTopScored': autoTopScored,
       'autoMiddleScored': autoMiddleScored,
       'autoBottomScored': autoBottomScored,
@@ -82,15 +85,15 @@ class RobotMatch {
       'teleopTopScored': teleopTopScored,
       'teleopMiddleScored': teleopMiddleScored,
       'teleopBottomScored': teleopBottomScored,
+      'takingMoreFromDoubleSubstation': takingMoreFromDoubleSubstation ? 1 : 0,
       'coopBonus': coopBonus ? 1 : 0,
       'wasDefended': wasDefended ? 1 : 0,
       'floorPickupId': floorPickupId,
-      'dockingTimer': dockingTimer,
       'finalStatusId': finalStatusId,
+      'dockingTimer': dockingTimer,
       'allianceRobots': allianceRobots,
       'driverSkillId': driverSkillId,
       'speedRating': speedRating,
-      'chasis': chasis,
       'missedPieces': missedPieces,
       'died': died ? 1 : 0,
       'tippy': tippy ? 1 : 0,

@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as p;
 
-import '../classes/robot.dart';
+import '../classes/robot_match.dart';
 
 abstract class DBHelper {
   static Future<void> addRobot(RobotMatch robot) async {
@@ -54,6 +54,7 @@ abstract class DBHelper {
             teamNumber INTEGER,
             matchNumber INTEGER,
             allianceId TEXT,
+            autoPositionId TEXT,
             autoTopScored INTEGER,
             autoMiddleScored INTEGER,
             autoBottomScored INTEGER,
@@ -63,6 +64,7 @@ abstract class DBHelper {
             teleopTopScored INTEGER,
             teleopMiddleScored INTEGER,
             teleopBottomScored INTEGER,
+            takingMoreFromDoubleSubstation BOOLEAN,
             coopBonus BOOLEAN,
             wasDefended BOOLEAN,
             floorPickupId TEXT,
@@ -71,7 +73,6 @@ abstract class DBHelper {
             allianceRobots INTEGER,
             driverSkillId TEXT,
             speedRating INTEGER,
-            chasis TEXT,
             missedPieces INTEGER,
             died BOOLEAN,
             tippy BOOLEAN,

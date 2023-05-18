@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:botbusters_scout_app/providers/robots_provider.dart';
+import 'package:botbusters_scout_app/widgets/substation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 
-import 'package:botbusters_scout_app/classes/robot.dart';
+import 'package:botbusters_scout_app/classes/robot_match.dart';
 import 'package:botbusters_scout_app/providers/scout_data_provider.dart';
 import 'package:botbusters_scout_app/screens/qr_screen.dart';
 import 'package:botbusters_scout_app/widgets/alliance_buttons.dart';
@@ -15,6 +16,8 @@ import 'package:botbusters_scout_app/widgets/driver_skill_buttons.dart';
 import 'package:botbusters_scout_app/widgets/final_status_buttons.dart';
 import 'package:botbusters_scout_app/widgets/floor_pickup_buttons.dart';
 import 'package:botbusters_scout_app/widgets/write_number_widget.dart';
+
+import '../widgets/auto_position.dart';
 
 class SendScreen extends StatefulWidget {
   const SendScreen({super.key});
@@ -34,6 +37,8 @@ class _SendScreenState extends State<SendScreen> {
 
   String _allianceId = 'blue1';
 
+  AutoPosition _autoPosition = AutoPosition.positionOne;
+
   // Autonomous
   int _autoTopScored = 0;
   int _autoMiddleScored = 0;
@@ -51,6 +56,8 @@ class _SendScreenState extends State<SendScreen> {
   bool _coopBonus = false;
   bool _wasDefended = false;
 
+  bool _takingMoreFromDoubleSubstation = false;
+
   String _floorPickupId = 'none';
 
   // Endgame
@@ -63,11 +70,10 @@ class _SendScreenState extends State<SendScreen> {
   // Extras
   String _driverSkillId = 'notObs';
 
-  final _chasisController = TextEditingController();
-
   int _speedRating = 0;
 
   int _missedPieces = 0;
+
   bool _died = false;
   bool _tippy = false;
   bool _errorFoul = false;
@@ -91,10 +97,16 @@ class _SendScreenState extends State<SendScreen> {
           ModalRoute.of(context)?.settings.arguments as RobotMatch?;
 
       if (editRobotData != null) {
-        // Normal
+        // General Data
         _teamNumberController.text = editRobotData.teamNumber.toString();
         _matchNumberController.text = editRobotData.matchNumber.toString();
         _allianceId = editRobotData.allianceId;
+        _autoPosition = AutoPosition.values
+            .where(
+              (autoPosition) =>
+                  autoPosition.name == editRobotData.autoPositionId,
+            )
+            .first;
 
         // Autonomous
         _autoTopScored = editRobotData.autoTopScored;
@@ -113,8 +125,8 @@ class _SendScreenState extends State<SendScreen> {
         _floorPickupId = editRobotData.floorPickupId;
 
         // Endgame
-        _dockingTimer = editRobotData.dockingTimer ?? 0;
         _finalStatusId = editRobotData.finalStatusId;
+        _dockingTimer = editRobotData.dockingTimer ?? 0;
         _allianceRobots = editRobotData.allianceRobots ?? 0;
 
         // Extras
@@ -201,7 +213,22 @@ class _SendScreenState extends State<SendScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                const SizedBox(height: 25),
+                const Text(
+                  'Initial Position',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 const SizedBox(height: 15),
+                AutoPositionWidget(
+                  autoPosition: _autoPosition,
+                  onButtonPressed: (newAutoPosition) {
+                    _autoPosition = newAutoPosition;
+                  },
+                ),
+                const SizedBox(height: 25),
                 Row(
                   children: [
                     const Text(
@@ -455,7 +482,28 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 30),
+                const Text(
+                  'From where it took more pieces?',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SubstationWidget(
+                      takingMoreFromDoubleSubstation:
+                          _takingMoreFromDoubleSubstation,
+                      onButtonPressed: (newValue) {
+                        _takingMoreFromDoubleSubstation = newValue;
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     FlutterSwitch(
@@ -667,43 +715,6 @@ class _SendScreenState extends State<SendScreen> {
                   divisions: 10,
                   inactiveColor: Colors.grey.shade800,
                   activeColor: const Color.fromARGB(255, 255, 0, 43),
-                ),
-                const SizedBox(height: 15),
-                const Text(
-                  'Chasis',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: const Color.fromARGB(255, 64, 64, 64),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 15,
-                  ),
-                  child: TextFormField(
-                    controller: _chasisController,
-                    decoration: const InputDecoration.collapsed(
-                      hintText: 'Type here...',
-                    ),
-                    buildCounter: (
-                      context, {
-                      required int currentLength,
-                      required bool isFocused,
-                      required int? maxLength,
-                    }) =>
-                        null,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                    maxLength: 30,
-                    maxLines: 1,
-                  ),
                 ),
                 const SizedBox(height: 15),
                 Row(
@@ -981,6 +992,7 @@ class _SendScreenState extends State<SendScreen> {
                             matchNumber:
                                 int.tryParse(_matchNumberController.text) ?? 0,
                             allianceId: _allianceId,
+                            autoPositionId: _autoPosition.name,
                             autoTopScored: _autoTopScored,
                             autoMiddleScored: _autoMiddleScored,
                             autoBottomScored: _autoBottomScored,
@@ -990,6 +1002,8 @@ class _SendScreenState extends State<SendScreen> {
                             teleopTopScored: _teleopTopScored,
                             teleopMiddleScored: _teleopMiddleScored,
                             teleopBottomScored: _teleopBottomScored,
+                            takingMoreFromDoubleSubstation:
+                                _takingMoreFromDoubleSubstation,
                             coopBonus: _coopBonus,
                             wasDefended: _wasDefended,
                             floorPickupId: _floorPickupId,
@@ -999,7 +1013,6 @@ class _SendScreenState extends State<SendScreen> {
                             allianceRobots:
                                 teleopDockedOrEngaged ? _allianceRobots : null,
                             driverSkillId: _driverSkillId,
-                            chasis: _chasisController.text,
                             speedRating: _speedRating,
                             missedPieces: _missedPieces,
                             died: _died,

@@ -1,7 +1,7 @@
 import 'package:botbusters_scout_app/helpers/database_helper.dart';
 import 'package:flutter/material.dart';
 
-import '../classes/robot.dart';
+import '../classes/robot_match.dart';
 
 class RobotsProvider with ChangeNotifier {
   List<RobotMatch> _robots = [];
@@ -34,6 +34,7 @@ class RobotsProvider with ChangeNotifier {
             teamNumber: robotMap['teamNumber'],
             matchNumber: robotMap['matchNumber'],
             allianceId: robotMap['allianceId'],
+            autoPositionId: robotMap['autoPositionId'],
             autoTopScored: robotMap['autoTopScored'],
             autoMiddleScored: robotMap['autoMiddleScored'],
             autoBottomScored: robotMap['autoBottomScored'],
@@ -43,6 +44,8 @@ class RobotsProvider with ChangeNotifier {
             teleopTopScored: robotMap['teleopTopScored'],
             teleopMiddleScored: robotMap['teleopMiddleScored'],
             teleopBottomScored: robotMap['teleopBottomScored'],
+            takingMoreFromDoubleSubstation:
+                robotMap['takingMoreFromDoubleSubstation'] == 0 ? false : true,
             coopBonus: robotMap['coopBonus'] == 0 ? false : true,
             wasDefended: robotMap['wasDefended'] == 0 ? false : true,
             floorPickupId: robotMap['floorPickupId'],
@@ -50,7 +53,6 @@ class RobotsProvider with ChangeNotifier {
             finalStatusId: robotMap['finalStatusId'],
             allianceRobots: robotMap['allianceRobots'],
             driverSkillId: robotMap['driverSkillId'],
-            chasis: robotMap['chasis'],
             speedRating: robotMap['speedRating'],
             missedPieces:
                 robotMap['missedPieces'], // ! WE CHANGED FROM BOOL TO INT

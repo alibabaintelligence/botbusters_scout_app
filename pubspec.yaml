@@ -73,25 +73,25 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets\imgs\botbusters_logo.png
-    - assets\imgs\prepatec_garzasada_logo.png
-    - assets\imgs\field.png
-    - assets\imgs\substations.png
+    - assets/imgs/botbusters_logo.png
+    - assets/imgs/prepatec_garzasada_logo.png
+    - assets/imgs/field.png
+    - assets/imgs/substations.png
     # SVGs
-    - assets\svgs\x.svg
+    - assets/svgs/x.svg
     # Driver Skill
-    - assets\svgs\driverSkill\notEff.svg
-    - assets\svgs\driverSkill\veryEff.svg
-    - assets\svgs\driverSkill\eff.svg
+    - assets/svgs/driverSkill/notEff.svg
+    - assets/svgs/driverSkill/veryEff.svg
+    - assets/svgs/driverSkill/eff.svg
     # Final Status
-    - assets\svgs\finalStatus\docked.svg
-    - assets\svgs\finalStatus\engaged.svg
-    - assets\svgs\finalStatus\failed.svg
-    - assets\svgs\finalStatus\parked.svg
+    - assets/svgs/finalStatus/docked.svg
+    - assets/svgs/finalStatus/engaged.svg
+    - assets/svgs/finalStatus/failed.svg
+    - assets/svgs/finalStatus/parked.svg
     # Final Status
-    - assets\svgs\floorPickup\cones.svg
-    - assets\svgs\floorPickup\cubes.svg
-    - assets\svgs\floorPickup\both.svg
+    - assets/svgs/floorPickup/cones.svg
+    - assets/svgs/floorPickup/cubes.svg
+    - assets/svgs/floorPickup/both.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -31,7 +31,7 @@ class SendScreen extends StatefulWidget {
 class _SendScreenState extends State<SendScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // Normal
+  // Basic Data
   final _teamNumberController = TextEditingController();
   final _matchNumberController = TextEditingController();
 
@@ -49,16 +49,19 @@ class _SendScreenState extends State<SendScreen> {
   bool _engaged = false;
 
   // Tele-Op
+  int _teleopCycles = 0;
+
   int _teleopTopScored = 0;
   int _teleopMiddleScored = 0;
   int _teleopBottomScored = 0;
 
+  bool _takingMoreFromDoubleSubstation = false;
+
   bool _coopBonus = false;
   bool _wasDefended = false;
 
-  bool _takingMoreFromDoubleSubstation = false;
-
   String _floorPickupId = 'none';
+  int _teleopPiecesFromGround = 0;
 
   // Endgame
   int _dockingTimer = 0;
@@ -79,6 +82,12 @@ class _SendScreenState extends State<SendScreen> {
   bool _errorFoul = false;
   bool _mechFail = false;
   bool _defense = false;
+
+  bool _redCard = false;
+  bool _yellowCard = false;
+
+  final _redCardMotive = TextEditingController();
+  final _yellowCardMotive = TextEditingController();
 
   final _commentController = TextEditingController();
 
@@ -422,6 +431,33 @@ class _SendScreenState extends State<SendScreen> {
                 const SizedBox(height: 15),
                 Row(
                   children: [
+                    const Icon(
+                      Icons.loop_rounded,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 3.0),
+                    const Text(
+                      'Cycles',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const Spacer(),
+                    CoolCounter(
+                      max: 9999,
+                      min: 0,
+                      value: _teleopCycles,
+                      whenChanged: (newValue) {
+                        _teleopCycles = newValue;
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  children: [
                     const Text(
                       'Top Scored',
                       style: TextStyle(
@@ -579,7 +615,7 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 35),
                 const Text(
                   'Floor Pickup',
                   style: TextStyle(
@@ -594,6 +630,33 @@ class _SendScreenState extends State<SendScreen> {
                     _floorPickupId = newId;
                   },
                 ),
+                if (_floorPickupId != 'none')
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          const Text(
+                            'Pieces pickuped',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Spacer(),
+                          CoolCounter(
+                            max: 9999,
+                            min: 0,
+                            value: _teleopPiecesFromGround,
+                            whenChanged: (newValue) {
+                              _teleopPiecesFromGround = newValue;
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 const SizedBox(height: 35),
                 const Text(
                   'Endgame',
@@ -960,7 +1023,8 @@ class _SendScreenState extends State<SendScreen> {
                     style: const TextStyle(
                       fontSize: 16,
                     ),
-                    maxLength: 100,
+                    // Comment max characters
+                    maxLength: 170,
                     maxLines: 5,
                   ),
                 ),
@@ -1064,9 +1128,9 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                     child: _isLoading
                         ? const CupertinoActivityIndicator()
-                        : Row(
+                        : const Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
+                            children: [
                               Text(
                                 'Generate QR',
                                 style: TextStyle(

@@ -72,13 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset('assets/imgs/botbusters_logo.png', height: 150),
+              Image.asset(
+                'assets/imgs/botbusters_logo.png',
+                height: 150,
+              ),
               const Text(
                 'Scouting App',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.italic,
                 ),
               ),
               const SizedBox(height: 20),
@@ -263,9 +265,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       1.0,
                                     ),
                                   ),
-                                  child: Column(
+                                  child: const Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.send_rounded,
                                         color: Colors.white,
@@ -311,9 +313,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       1.0,
                                     ),
                                   ),
-                                  child: Column(
+                                  child: const Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.manage_search_rounded,
                                         color: Colors.white,
@@ -356,9 +358,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(14.0),
                               color: const Color.fromARGB(255, 84, 84, 84),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.arrow_back_rounded,
                                   color: Colors.white,

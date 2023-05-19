@@ -63,7 +63,7 @@ class _SubstationWidgetState extends State<SubstationWidget> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -71,15 +71,15 @@ class _SubstationWidgetState extends State<SubstationWidget> {
                       : Container(
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(10.5),
+                            borderRadius: BorderRadius.circular(9.0),
                           ),
-                          padding: const EdgeInsets.all(5.5),
+                          padding: const EdgeInsets.all(8.0),
                           alignment: Alignment.center,
                           child: const Text(
                             'Single\nSubstation',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 214, 214, 214),
                               fontSize: 15.0,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Inter',
@@ -124,7 +124,7 @@ class _SubstationWidgetState extends State<SubstationWidget> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               fontFamily: 'Inter',
                             ),
                           ),
@@ -132,15 +132,15 @@ class _SubstationWidgetState extends State<SubstationWidget> {
                       : Container(
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(10.5),
+                            borderRadius: BorderRadius.circular(9.0),
                           ),
-                          padding: const EdgeInsets.all(5.5),
+                          padding: const EdgeInsets.all(8.0),
                           alignment: Alignment.center,
                           child: const Text(
                             'Double\nSubstation',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 214, 214, 214),
                               fontSize: 15.0,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Inter',

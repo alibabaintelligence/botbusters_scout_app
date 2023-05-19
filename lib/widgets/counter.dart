@@ -60,13 +60,13 @@ class _CoolCounterState extends State<CoolCounter> {
           padding: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.blue.shade400.withOpacity(0.4),
+              color: Color.fromARGB(255, 2, 143, 230),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.all(2.0),
             child: Icon(
               CupertinoIcons.minus,
-              color: Colors.blue.shade100,
+              color: Color.fromARGB(255, 149, 214, 255),
             ),
           ),
         ),
@@ -147,13 +147,13 @@ class _CoolCounterState extends State<CoolCounter> {
           padding: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.greenAccent.shade400.withOpacity(0.4),
+              color: Color.fromARGB(255, 17, 167, 94),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.all(2.0),
             child: Icon(
               CupertinoIcons.add,
-              color: Colors.greenAccent.shade100,
+              color: Color.fromARGB(255, 136, 255, 197),
             ),
           ),
         ),

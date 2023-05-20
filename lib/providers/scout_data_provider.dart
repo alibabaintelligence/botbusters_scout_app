@@ -42,7 +42,7 @@ class ScoutDataProvider with ChangeNotifier {
 
       notifyListeners();
     } catch (err) {
-      print(err);
+      debugPrint(err.toString());
     }
   }
 }

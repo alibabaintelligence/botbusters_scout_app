@@ -10,6 +10,7 @@ class RobotMatch {
   final bool leftCommunity;
   final bool docked;
   final bool engaged;
+  final int teleopCycles;
   final int teleopTopScored;
   final int teleopMiddleScored;
   final int teleopBottomScored;
@@ -17,6 +18,7 @@ class RobotMatch {
   final bool coopBonus;
   final bool wasDefended;
   final String floorPickupId;
+  final int? pickedUpPieces;
   final String finalStatusId;
   final int? dockingTimer;
   final int? allianceRobots;
@@ -25,9 +27,12 @@ class RobotMatch {
   final int missedPieces;
   final bool died;
   final bool tippy;
-  final bool errorFoul;
   final bool mechFail;
   final bool defense;
+  final bool yellowCard;
+  final bool redCard;
+  final String? yellowCardMotive;
+  final String? redCardMotive;
   final String comment;
   final String scoutId;
   final String scoutName;
@@ -45,6 +50,7 @@ class RobotMatch {
     required this.leftCommunity,
     required this.docked,
     required this.engaged,
+    required this.teleopCycles,
     required this.teleopTopScored,
     required this.teleopMiddleScored,
     required this.teleopBottomScored,
@@ -52,6 +58,7 @@ class RobotMatch {
     required this.coopBonus,
     required this.wasDefended,
     required this.floorPickupId,
+    required this.pickedUpPieces,
     required this.finalStatusId,
     required this.dockingTimer,
     required this.allianceRobots,
@@ -60,16 +67,19 @@ class RobotMatch {
     required this.missedPieces,
     required this.died,
     required this.tippy,
-    required this.errorFoul,
     required this.mechFail,
     required this.defense,
+    required this.yellowCard,
+    required this.redCard,
+    required this.yellowCardMotive,
+    required this.redCardMotive,
     required this.comment,
     required this.scoutId,
     required this.scoutName,
     required this.dateTimeCreated,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toSQLMap() {
     return {
       'id': id,
       'teamNumber': teamNumber,
@@ -82,6 +92,7 @@ class RobotMatch {
       'leftCommunity': leftCommunity ? 1 : 0,
       'docked': docked ? 1 : 0,
       'engaged': engaged ? 1 : 0,
+      'teleopCycles': teleopCycles,
       'teleopTopScored': teleopTopScored,
       'teleopMiddleScored': teleopMiddleScored,
       'teleopBottomScored': teleopBottomScored,
@@ -89,6 +100,7 @@ class RobotMatch {
       'coopBonus': coopBonus ? 1 : 0,
       'wasDefended': wasDefended ? 1 : 0,
       'floorPickupId': floorPickupId,
+      'pickedUpPieces': pickedUpPieces,
       'finalStatusId': finalStatusId,
       'dockingTimer': dockingTimer,
       'allianceRobots': allianceRobots,
@@ -97,9 +109,12 @@ class RobotMatch {
       'missedPieces': missedPieces,
       'died': died ? 1 : 0,
       'tippy': tippy ? 1 : 0,
-      'errorFoul': errorFoul ? 1 : 0,
       'mechFail': mechFail ? 1 : 0,
       'defense': defense ? 1 : 0,
+      'yellowCard': yellowCard ? 1 : 0,
+      'redCard': redCard ? 1 : 0,
+      'yellowCardMotive': yellowCardMotive,
+      'redCardMotive': redCardMotive,
       'comment': comment,
       'scoutId': scoutId,
       'scoutName': scoutName,

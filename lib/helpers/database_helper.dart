@@ -9,7 +9,7 @@ abstract class DBHelper {
 
     await database.insert(
       'robots',
-      robot.toMap(),
+      robot.toSQLMap(),
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
     );
   }
@@ -19,7 +19,7 @@ abstract class DBHelper {
 
     await database.update(
       'robots',
-      robot.toMap(),
+      robot.toSQLMap(),
       where: 'id = ?',
       whereArgs: [previousId],
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
@@ -61,6 +61,7 @@ abstract class DBHelper {
             leftCommunity BOOLEAN,
             docked BOOLEAN,
             engaged BOOLEAN,
+            teleopCycles INTEGER,
             teleopTopScored INTEGER,
             teleopMiddleScored INTEGER,
             teleopBottomScored INTEGER,
@@ -68,17 +69,21 @@ abstract class DBHelper {
             coopBonus BOOLEAN,
             wasDefended BOOLEAN,
             floorPickupId TEXT,
-            dockingTimer INTEGER,
+            pickedUpPieces INTEGER,
             finalStatusId TEXT,
+            dockingTimer INTEGER,
             allianceRobots INTEGER,
             driverSkillId TEXT,
             speedRating INTEGER,
             missedPieces INTEGER,
             died BOOLEAN,
             tippy BOOLEAN,
-            errorFoul BOOLEAN,
             mechFail BOOLEAN,
             defense BOOLEAN,
+            yellowCard BOOLEAN,
+            redCard BOOLEAN,
+            yellowCardMotive TEXT,
+            redCardMotive TEXT,
             comment TEXT,
             scoutId TEXT,
             scoutName TEXT,

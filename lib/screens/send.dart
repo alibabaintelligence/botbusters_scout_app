@@ -61,13 +61,13 @@ class _SendScreenState extends State<SendScreen> {
   bool _wasDefended = false;
 
   String _floorPickupId = 'none';
-  int _teleopPiecesFromGround = 0;
+  // * This one depends on _floorPickupId
+  int _pickedUpPieces = 0;
 
   // Endgame
-  int _dockingTimer = 0;
-
   String _finalStatusId = 'notAttempted';
-
+  // * These two depend on _finalStatusId
+  int _dockingTimer = 0;
   int _allianceRobots = 0;
 
   // Extras
@@ -79,15 +79,14 @@ class _SendScreenState extends State<SendScreen> {
 
   bool _died = false;
   bool _tippy = false;
-  bool _errorFoul = false;
   bool _mechFail = false;
   bool _defense = false;
 
-  bool _redCard = false;
   bool _yellowCard = false;
-
-  final _redCardMotive = TextEditingController();
-  final _yellowCardMotive = TextEditingController();
+  bool _redCard = false;
+  // * These two depend on _redCard & _yellowCard
+  final _yellowCardMotiveController = TextEditingController();
+  final _redCardMotiveController = TextEditingController();
 
   final _commentController = TextEditingController();
 
@@ -126,12 +125,14 @@ class _SendScreenState extends State<SendScreen> {
         _engaged = editRobotData.engaged;
 
         // Tele-Op
+        _teleopCycles = editRobotData.teleopCycles;
         _teleopTopScored = editRobotData.teleopTopScored;
         _teleopMiddleScored = editRobotData.teleopMiddleScored;
         _teleopBottomScored = editRobotData.teleopBottomScored;
         _coopBonus = editRobotData.coopBonus;
         _wasDefended = editRobotData.wasDefended;
         _floorPickupId = editRobotData.floorPickupId;
+        _pickedUpPieces = editRobotData.pickedUpPieces ?? 0;
 
         // Endgame
         _finalStatusId = editRobotData.finalStatusId;
@@ -144,9 +145,13 @@ class _SendScreenState extends State<SendScreen> {
         _missedPieces = editRobotData.missedPieces;
         _died = editRobotData.died;
         _tippy = editRobotData.tippy;
-        _errorFoul = editRobotData.errorFoul;
         _mechFail = editRobotData.mechFail;
         _defense = editRobotData.defense;
+        _yellowCard = editRobotData.yellowCard;
+        _redCard = editRobotData.redCard;
+        _yellowCardMotiveController.text = editRobotData.yellowCardMotive ?? '';
+        _redCardMotiveController.text = editRobotData.redCardMotive ?? '';
+
         _commentController.text = editRobotData.comment;
 
         _previousId = editRobotData.id;
@@ -518,6 +523,221 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    FlutterSwitch(
+                      value: _yellowCard,
+                      onToggle: (newValue) {
+                        setState(() {
+                          _yellowCard = newValue;
+                          if (_yellowCard) {
+                            _docked = false;
+                          }
+                        });
+                      },
+                      activeColor: const Color.fromARGB(255, 241, 217, 0),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
+                      borderRadius: 12,
+                      width: 47,
+                      height: 27,
+                      toggleSize: 16,
+                      // iq 150 papu, pa que no se corra el toggle del switch le pongo
+                      // un border del color verde, y así se ve más pequeño
+                      activeToggleBorder: Border.all(
+                        color: const Color.fromARGB(255, 209, 188, 0),
+                        width: 1,
+                        strokeAlign: BorderSide.strokeAlignInside,
+                      ),
+                      inactiveToggleBorder: Border.all(
+                        color: const Color.fromRGBO(200, 200, 200, 1.0),
+                        width: 1,
+                        strokeAlign: BorderSide.strokeAlignInside,
+                      ),
+                    ),
+                    const SizedBox(width: 25),
+                    const Text(
+                      'Yellow Card',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                if (_yellowCard)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Yellow Card Motive (max. 50 chars)',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          color: const Color.fromARGB(255, 64, 64, 64),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 15,
+                        ),
+                        child: TextFormField(
+                          controller: _yellowCardMotiveController,
+                          decoration: const InputDecoration.collapsed(
+                            hintText: 'Type here...',
+                          ),
+                          buildCounter: (
+                            context, {
+                            required int currentLength,
+                            required bool isFocused,
+                            required int? maxLength,
+                          }) =>
+                              null,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          // Comment max characters
+                          maxLength: 50,
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                    ],
+                  ),
+                Row(
+                  children: [
+                    FlutterSwitch(
+                      value: _redCard,
+                      onToggle: (newValue) {
+                        setState(() {
+                          _redCard = newValue;
+                          if (_redCard) {
+                            _docked = false;
+                          }
+                        });
+                      },
+                      activeColor: const Color.fromARGB(255, 231, 40, 40),
+                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
+                      borderRadius: 12,
+                      width: 47,
+                      height: 27,
+                      toggleSize: 16,
+                      // iq 150 papu, pa que no se corra el toggle del switch le pongo
+                      // un border del color verde, y así se ve más pequeño
+                      activeToggleBorder: Border.all(
+                        color: const Color.fromARGB(255, 175, 40, 40),
+                        width: 1,
+                        strokeAlign: BorderSide.strokeAlignInside,
+                      ),
+                      inactiveToggleBorder: Border.all(
+                        color: const Color.fromRGBO(200, 200, 200, 1.0),
+                        width: 1,
+                        strokeAlign: BorderSide.strokeAlignInside,
+                      ),
+                    ),
+                    const SizedBox(width: 25),
+                    const Text(
+                      'Red Card',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+                if (_redCard)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Red Card Motive (max. 50 chars)',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          color: const Color.fromARGB(255, 64, 64, 64),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 15,
+                        ),
+                        child: TextFormField(
+                          controller: _redCardMotiveController,
+                          decoration: const InputDecoration.collapsed(
+                            hintText: 'Type here...',
+                          ),
+                          buildCounter: (
+                            context, {
+                            required int currentLength,
+                            required bool isFocused,
+                            required int? maxLength,
+                          }) =>
+                              null,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          // Comment max characters
+                          maxLength: 50,
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                    ],
+                  ),
+                const SizedBox(height: 30),
+                const Text(
+                  'Floor Pickup',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                FloorPickupButtons(
+                  floorPickupId: _floorPickupId,
+                  onButtonPressed: (newId) {
+                    setState(() {
+                      _floorPickupId = newId;
+                    });
+                  },
+                ),
+                if (_floorPickupId != 'none')
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          const Text(
+                            'Picked up pieces',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Spacer(),
+                          CoolCounter(
+                            max: 9999,
+                            min: 0,
+                            value: _pickedUpPieces,
+                            whenChanged: (newValue) {
+                              _pickedUpPieces = newValue;
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 const SizedBox(height: 30),
                 const Text(
                   'From where it took more pieces?',
@@ -615,48 +835,6 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 35),
-                const Text(
-                  'Floor Pickup',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                FloorPickupButtons(
-                  floorPickupId: _floorPickupId,
-                  onButtonPressed: (newId) {
-                    _floorPickupId = newId;
-                  },
-                ),
-                if (_floorPickupId != 'none')
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          const Text(
-                            'Pieces pickuped',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Spacer(),
-                          CoolCounter(
-                            max: 9999,
-                            min: 0,
-                            value: _teleopPiecesFromGround,
-                            whenChanged: (newValue) {
-                              _teleopPiecesFromGround = newValue;
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
                 const SizedBox(height: 35),
                 const Text(
                   'Endgame',
@@ -880,44 +1058,6 @@ class _SendScreenState extends State<SendScreen> {
                 Row(
                   children: [
                     FlutterSwitch(
-                      value: _errorFoul,
-                      onToggle: (newValue) {
-                        setState(() {
-                          _errorFoul = newValue;
-                        });
-                      },
-                      activeColor: const Color.fromRGBO(0, 180, 140, 1.0),
-                      inactiveColor: const Color.fromRGBO(100, 100, 100, 1.0),
-                      borderRadius: 12,
-                      width: 47,
-                      height: 27,
-                      toggleSize: 16,
-                      // iq 150 papu, pa que no se corra el toggle del switch le pongo
-                      // un border del color verde, y así se ve más pequeño
-                      activeToggleBorder: Border.all(
-                        color: const Color.fromRGBO(0, 220, 167, 1.0),
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignInside,
-                      ),
-                      inactiveToggleBorder: Border.all(
-                        color: const Color.fromRGBO(200, 200, 200, 1.0),
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignInside,
-                      ),
-                    ),
-                    const SizedBox(width: 25),
-                    const Text(
-                      'Error or Foul',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  children: [
-                    FlutterSwitch(
                       value: _mechFail,
                       onToggle: (newValue) {
                         setState(() {
@@ -1045,10 +1185,6 @@ class _SendScreenState extends State<SendScreen> {
                             listen: false,
                           );
 
-                          final bool teleopDockedOrEngaged =
-                              _finalStatusId == 'docked' ||
-                                  _finalStatusId == 'engaged';
-
                           final robot = RobotMatch(
                             id: '${scoutDataProvider.scoutUser!.id}$_allianceId$_finalStatusId$_driverSkillId$_autoTopScored${DateTime.now().toString()}',
                             teamNumber:
@@ -1063,6 +1199,7 @@ class _SendScreenState extends State<SendScreen> {
                             leftCommunity: _leftCommunity,
                             docked: _docked,
                             engaged: _engaged,
+                            teleopCycles: _teleopCycles,
                             teleopTopScored: _teleopTopScored,
                             teleopMiddleScored: _teleopMiddleScored,
                             teleopBottomScored: _teleopBottomScored,
@@ -1071,19 +1208,32 @@ class _SendScreenState extends State<SendScreen> {
                             coopBonus: _coopBonus,
                             wasDefended: _wasDefended,
                             floorPickupId: _floorPickupId,
-                            dockingTimer:
-                                teleopDockedOrEngaged ? _dockingTimer : null,
+                            pickedUpPieces: _floorPickupId != 'none'
+                                ? _pickedUpPieces
+                                : null,
                             finalStatusId: _finalStatusId,
-                            allianceRobots:
-                                teleopDockedOrEngaged ? _allianceRobots : null,
+                            dockingTimer: _finalStatusId == 'docked' ||
+                                    _finalStatusId == 'engaged'
+                                ? _dockingTimer
+                                : null,
+                            allianceRobots: _finalStatusId == 'docked' ||
+                                    _finalStatusId == 'engaged'
+                                ? _allianceRobots
+                                : null,
                             driverSkillId: _driverSkillId,
                             speedRating: _speedRating,
                             missedPieces: _missedPieces,
                             died: _died,
                             tippy: _tippy,
-                            errorFoul: _errorFoul,
                             mechFail: _mechFail,
                             defense: _defense,
+                            yellowCard: _yellowCard,
+                            redCard: _redCard,
+                            yellowCardMotive: _yellowCard
+                                ? _yellowCardMotiveController.text
+                                : null,
+                            redCardMotive:
+                                _redCard ? _redCardMotiveController.text : null,
                             comment: _commentController.text,
                             scoutId: scoutDataProvider.scoutUser!.id,
                             scoutName: scoutDataProvider.scoutUser!.name,
@@ -1107,7 +1257,7 @@ class _SendScreenState extends State<SendScreen> {
                           });
 
                           final String jsonRobot =
-                              encoder.convert(robot.toMap());
+                              encoder.convert(robot.toSQLMap());
 
                           if (context.mounted) {
                             Navigator.of(context).popAndPushNamed(

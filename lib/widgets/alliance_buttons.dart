@@ -44,7 +44,7 @@ class _AllianceButtonsState extends State<AllianceButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: allianceId == 'blue1'
-                  ? const Color.fromARGB(255, 49, 54, 79)
+                  ? const Color.fromARGB(255, 36, 52, 133)
                   : const Color.fromARGB(255, 64, 64, 64),
               boxShadow: allianceId == 'blue1'
                   ? [
@@ -56,13 +56,13 @@ class _AllianceButtonsState extends State<AllianceButtons> {
                     ]
                   : null,
             ),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   '1',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 36, 0, 255),
+                    color: Color.fromARGB(255, 0, 119, 255),
                     fontWeight: FontWeight.w800,
                     fontSize: 30,
                     fontFamily: 'Inter',
@@ -96,7 +96,7 @@ class _AllianceButtonsState extends State<AllianceButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: allianceId == 'blue2'
-                  ? const Color.fromARGB(255, 49, 54, 79)
+                  ? const Color.fromARGB(255, 36, 52, 133)
                   : const Color.fromARGB(255, 64, 64, 64),
               boxShadow: allianceId == 'blue2'
                   ? [
@@ -108,13 +108,13 @@ class _AllianceButtonsState extends State<AllianceButtons> {
                     ]
                   : null,
             ),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   '2',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 36, 0, 255),
+                    color: Color.fromARGB(255, 0, 119, 255),
                     fontWeight: FontWeight.w800,
                     fontSize: 30,
                     fontFamily: 'Inter',
@@ -148,7 +148,7 @@ class _AllianceButtonsState extends State<AllianceButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: allianceId == 'blue3'
-                  ? const Color.fromARGB(255, 49, 54, 79)
+                  ? const Color.fromARGB(255, 36, 52, 133)
                   : const Color.fromARGB(255, 64, 64, 64),
               boxShadow: allianceId == 'blue3'
                   ? [
@@ -160,13 +160,13 @@ class _AllianceButtonsState extends State<AllianceButtons> {
                     ]
                   : null,
             ),
-            child: Column(
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   '3',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 36, 0, 255),
+                    color: Color.fromARGB(255, 0, 119, 255),
                     fontWeight: FontWeight.w800,
                     fontSize: 30,
                     fontFamily: 'Inter',
@@ -200,7 +200,7 @@ class _AllianceButtonsState extends State<AllianceButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: allianceId == 'red1'
-                  ? const Color.fromARGB(255, 87, 58, 60)
+                  ? const Color.fromARGB(255, 133, 36, 36)
                   : const Color.fromARGB(255, 64, 64, 64),
               boxShadow: allianceId == 'red1'
                   ? [
@@ -252,7 +252,7 @@ class _AllianceButtonsState extends State<AllianceButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: allianceId == 'red2'
-                  ? const Color.fromARGB(255, 87, 58, 60)
+                  ? const Color.fromARGB(255, 133, 36, 36)
                   : const Color.fromARGB(255, 64, 64, 64),
               boxShadow: allianceId == 'red2'
                   ? [
@@ -304,7 +304,7 @@ class _AllianceButtonsState extends State<AllianceButtons> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: allianceId == 'red3'
-                  ? const Color.fromARGB(255, 87, 58, 60)
+                  ? const Color.fromARGB(255, 133, 36, 36)
                   : const Color.fromARGB(255, 64, 64, 64),
               boxShadow: allianceId == 'red3'
                   ? [

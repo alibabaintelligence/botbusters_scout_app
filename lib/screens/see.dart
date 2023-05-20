@@ -86,10 +86,10 @@ class _SeeScreenState extends State<SeeScreen> {
                     confirmDismiss: (_) {
                       return showCupertinoDialog(
                         context: context,
-                        builder: (ctx) {
+                        builder: (context) {
                           return Dialog(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(15.0),
                             ),
                             insetPadding:
                                 const EdgeInsets.fromLTRB(20, 80, 20, 15),
@@ -111,7 +111,7 @@ class _SeeScreenState extends State<SeeScreen> {
                                       'Delete this robot?',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 19,
+                                        fontSize: 16,
                                       ),
                                     ),
                                     const SizedBox(height: 8),
@@ -119,7 +119,7 @@ class _SeeScreenState extends State<SeeScreen> {
                                       'This action can not be undone.',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                        fontSize: 13,
                                       ),
                                     ),
                                     const SizedBox(height: 15),
@@ -131,14 +131,22 @@ class _SeeScreenState extends State<SeeScreen> {
                                           child: const Text(
                                             'Yes',
                                             style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 117, 117),
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600),
+                                              color: Color.fromARGB(
+                                                255,
+                                                255,
+                                                117,
+                                                117,
+                                              ),
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                           onPressed: () async {
+                                            // ! The user can press the button twice
+                                            // ! Prevent it with some variable _isLoading
                                             await DBHelper.deleteRobot(
-                                                robotMatch);
+                                              robotMatch,
+                                            );
                                             Navigator.of(context).pop(true);
                                           },
                                         ),
@@ -148,9 +156,10 @@ class _SeeScreenState extends State<SeeScreen> {
                                           child: const Text(
                                             'No',
                                             style: TextStyle(
-                                                color: Colors.lightBlueAccent,
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w600),
+                                              color: Colors.lightBlueAccent,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                           onPressed: () {
                                             Navigator.of(context).pop(false);
@@ -158,7 +167,7 @@ class _SeeScreenState extends State<SeeScreen> {
                                         ),
                                         const Spacer(),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

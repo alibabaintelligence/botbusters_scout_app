@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CoolCounter extends StatefulWidget {
-  const CoolCounter({
+class CounterField extends StatefulWidget {
+  const CounterField({
     super.key,
     required this.max,
     required this.min,
@@ -26,10 +26,10 @@ class CoolCounter extends StatefulWidget {
   final void Function(int newValue) whenChanged;
 
   @override
-  State<CoolCounter> createState() => _CoolCounterState();
+  State<CounterField> createState() => _CounterFieldState();
 }
 
-class _CoolCounterState extends State<CoolCounter> {
+class _CounterFieldState extends State<CounterField> {
   final _counterController = TextEditingController();
 
   @override
@@ -60,11 +60,11 @@ class _CoolCounterState extends State<CoolCounter> {
           padding: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 2, 143, 230),
+              color: const Color.fromARGB(255, 2, 143, 230),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.all(2.0),
-            child: Icon(
+            child: const Icon(
               CupertinoIcons.minus,
               color: Color.fromARGB(255, 149, 214, 255),
             ),
@@ -96,7 +96,7 @@ class _CoolCounterState extends State<CoolCounter> {
               ),
               maxLength: 4,
               maxLines: 1,
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               onFieldSubmitted: (_) {
                 int? intValue = int.tryParse(_counterController.text);
 
@@ -114,6 +114,8 @@ class _CoolCounterState extends State<CoolCounter> {
                 value = intValue;
 
                 widget.whenChanged(value);
+
+                FocusScope.of(context).unfocus();
               },
               onTapOutside: (_) {
                 int? intValue = int.tryParse(_counterController.text);
@@ -130,6 +132,8 @@ class _CoolCounterState extends State<CoolCounter> {
                 }
 
                 value = intValue;
+
+                FocusScope.of(context).unfocus();
               },
             ),
           ),
@@ -147,11 +151,11 @@ class _CoolCounterState extends State<CoolCounter> {
           padding: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 17, 167, 94),
+              color: const Color.fromARGB(255, 17, 167, 94),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.all(2.0),
-            child: Icon(
+            child: const Icon(
               CupertinoIcons.add,
               color: Color.fromARGB(255, 136, 255, 197),
             ),

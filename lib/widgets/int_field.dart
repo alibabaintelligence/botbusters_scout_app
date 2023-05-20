@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WriteNumberWidget extends StatelessWidget {
-  const WriteNumberWidget({
+class IntField extends StatelessWidget {
+  const IntField({
     super.key,
     required this.controller,
     required this.text,
@@ -10,8 +10,8 @@ class WriteNumberWidget extends StatelessWidget {
   final TextEditingController controller;
   final String text;
 
-  final int maxNumber = 9999;
-  final int minNumber = 0;
+  final int max = 9999;
+  final int min = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -55,26 +55,44 @@ class WriteNumberWidget extends StatelessWidget {
               ),
               maxLength: 5,
               maxLines: 1,
-              textInputAction: TextInputAction.next,
               validator: (title) {
                 if (title == null || title.isEmpty) {
                   return "Write something";
                 }
                 return null;
               },
-              onChanged: (value) {
-                int? intValue = int.tryParse(value);
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (_) {
+                int? intValue = int.tryParse(controller.text);
 
                 if (intValue == null) {
                   intValue = 0;
-                  value = intValue.toString();
-                } else if (intValue > maxNumber) {
-                  intValue = maxNumber;
-                  value = intValue.toString();
-                } else if (intValue < minNumber) {
-                  intValue = minNumber;
-                  value = intValue.toString();
+                  controller.text = intValue.toString();
+                } else if (intValue > max) {
+                  intValue = max;
+                  controller.text = intValue.toString();
+                } else if (intValue < min) {
+                  intValue = min;
+                  controller.text = intValue.toString();
                 }
+
+                FocusScope.of(context).unfocus();
+              },
+              onTapOutside: (_) {
+                int? intValue = int.tryParse(controller.text);
+
+                if (intValue == null) {
+                  intValue = 0;
+                  controller.text = intValue.toString();
+                } else if (intValue > max) {
+                  intValue = max;
+                  controller.text = intValue.toString();
+                } else if (intValue < min) {
+                  intValue = min;
+                  controller.text = intValue.toString();
+                }
+
+                FocusScope.of(context).unfocus();
               },
             ),
           ),

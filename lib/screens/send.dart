@@ -11,11 +11,11 @@ import 'package:botbusters_scout_app/classes/robot_match.dart';
 import 'package:botbusters_scout_app/providers/scout_data_provider.dart';
 import 'package:botbusters_scout_app/screens/qr_screen.dart';
 import 'package:botbusters_scout_app/widgets/alliance_buttons.dart';
-import 'package:botbusters_scout_app/widgets/counter.dart';
+import 'package:botbusters_scout_app/widgets/counter_field.dart';
 import 'package:botbusters_scout_app/widgets/driver_skill_buttons.dart';
 import 'package:botbusters_scout_app/widgets/final_status_buttons.dart';
 import 'package:botbusters_scout_app/widgets/floor_pickup_buttons.dart';
-import 'package:botbusters_scout_app/widgets/write_number_widget.dart';
+import 'package:botbusters_scout_app/widgets/int_field.dart';
 
 import '../widgets/auto_position.dart';
 
@@ -170,7 +170,10 @@ class _SendScreenState extends State<SendScreen> {
         centerTitle: true,
         title: const Text(
           'Send',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
@@ -190,17 +193,16 @@ class _SendScreenState extends State<SendScreen> {
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                WriteNumberWidget(
+                IntField(
                   controller: _teamNumberController,
                   text: 'Team Number',
                 ),
                 const SizedBox(height: 15),
-                WriteNumberWidget(
+                IntField(
                   controller: _matchNumberController,
                   text: 'Match Number',
                 ),
@@ -253,7 +255,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _autoTopScored,
@@ -274,7 +276,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _autoMiddleScored,
@@ -295,7 +297,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _autoBottomScored,
@@ -450,7 +452,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _teleopCycles,
@@ -471,7 +473,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _teleopTopScored,
@@ -492,7 +494,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _teleopMiddleScored,
@@ -513,7 +515,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _teleopBottomScored,
@@ -726,7 +728,7 @@ class _SendScreenState extends State<SendScreen> {
                             ),
                           ),
                           const Spacer(),
-                          CoolCounter(
+                          CounterField(
                             max: 9999,
                             min: 0,
                             value: _pickedUpPieces,
@@ -874,7 +876,7 @@ class _SendScreenState extends State<SendScreen> {
                             ),
                           ),
                           const Spacer(),
-                          CoolCounter(
+                          CounterField(
                             max: 9999,
                             min: 0,
                             value: _dockingTimer,
@@ -900,7 +902,7 @@ class _SendScreenState extends State<SendScreen> {
                             ),
                           ),
                           const Spacer(),
-                          CoolCounter(
+                          CounterField(
                             max: 3,
                             min: 0,
                             value: _allianceRobots,
@@ -968,7 +970,7 @@ class _SendScreenState extends State<SendScreen> {
                       ),
                     ),
                     const Spacer(),
-                    CoolCounter(
+                    CounterField(
                       max: 9999,
                       min: 0,
                       value: _missedPieces,
@@ -1130,7 +1132,7 @@ class _SendScreenState extends State<SendScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 30),
                 const Text(
                   'Comments',
                   style: TextStyle(
@@ -1138,7 +1140,7 @@ class _SendScreenState extends State<SendScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10.0),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
@@ -1173,96 +1175,187 @@ class _SendScreenState extends State<SendScreen> {
                   onPressed: _isLoading
                       ? null
                       : () async {
-                          setState(() {
-                            _isLoading = true;
-                          });
+                          try {
+                            setState(() {
+                              _isLoading = true;
+                            });
 
-                          const JsonEncoder encoder = JsonEncoder();
+                            const encoder = JsonEncoder();
 
-                          final scoutDataProvider =
-                              Provider.of<ScoutDataProvider>(
-                            context,
-                            listen: false,
-                          );
+                            final scoutDataProvider =
+                                Provider.of<ScoutDataProvider>(
+                              context,
+                              listen: false,
+                            );
 
-                          final robot = RobotMatch(
-                            id: '${scoutDataProvider.scoutUser!.id}$_allianceId$_finalStatusId$_driverSkillId$_autoTopScored${DateTime.now().toString()}',
-                            teamNumber:
-                                int.tryParse(_teamNumberController.text) ?? 0,
-                            matchNumber:
-                                int.tryParse(_matchNumberController.text) ?? 0,
-                            allianceId: _allianceId,
-                            autoPositionId: _autoPosition.name,
-                            autoTopScored: _autoTopScored,
-                            autoMiddleScored: _autoMiddleScored,
-                            autoBottomScored: _autoBottomScored,
-                            leftCommunity: _leftCommunity,
-                            docked: _docked,
-                            engaged: _engaged,
-                            teleopCycles: _teleopCycles,
-                            teleopTopScored: _teleopTopScored,
-                            teleopMiddleScored: _teleopMiddleScored,
-                            teleopBottomScored: _teleopBottomScored,
-                            takingMoreFromDoubleSubstation:
-                                _takingMoreFromDoubleSubstation,
-                            coopBonus: _coopBonus,
-                            wasDefended: _wasDefended,
-                            floorPickupId: _floorPickupId,
-                            pickedUpPieces: _floorPickupId != 'none'
-                                ? _pickedUpPieces
-                                : null,
-                            finalStatusId: _finalStatusId,
-                            dockingTimer: _finalStatusId == 'docked' ||
-                                    _finalStatusId == 'engaged'
-                                ? _dockingTimer
-                                : null,
-                            allianceRobots: _finalStatusId == 'docked' ||
-                                    _finalStatusId == 'engaged'
-                                ? _allianceRobots
-                                : null,
-                            driverSkillId: _driverSkillId,
-                            speedRating: _speedRating,
-                            missedPieces: _missedPieces,
-                            died: _died,
-                            tippy: _tippy,
-                            mechFail: _mechFail,
-                            defense: _defense,
-                            yellowCard: _yellowCard,
-                            redCard: _redCard,
-                            yellowCardMotive: _yellowCard
-                                ? _yellowCardMotiveController.text
-                                : null,
-                            redCardMotive:
-                                _redCard ? _redCardMotiveController.text : null,
-                            comment: _commentController.text,
-                            scoutId: scoutDataProvider.scoutUser!.id,
-                            scoutName: scoutDataProvider.scoutUser!.name,
-                            dateTimeCreated: DateTime.now(),
-                          );
+                            final teamNumber =
+                                int.tryParse(_teamNumberController.text);
 
-                          // Saving robot in-state and locally
-                          final robotsProvider = Provider.of<RobotsProvider>(
-                            context,
-                            listen: false,
-                          );
+                            if (teamNumber == null) {
+                              throw 'Invalid Team Number';
+                            }
 
-                          if (_isEditing) {
-                            await robotsProvider.editRobot(robot, _previousId);
-                          } else {
-                            await robotsProvider.addRobot(robot);
-                          }
+                            final matchNumber =
+                                int.tryParse(_matchNumberController.text);
 
-                          setState(() {
-                            _isLoading = false;
-                          });
+                            if (matchNumber == null) {
+                              throw 'Invalid Match Number';
+                            }
 
-                          final String jsonRobot =
-                              encoder.convert(robot.toSQLMap());
+                            final robot = RobotMatch(
+                              id: '${scoutDataProvider.scoutUser!.id}$_allianceId$_finalStatusId$_driverSkillId$_autoTopScored${DateTime.now().toString()}',
+                              teamNumber: teamNumber,
+                              matchNumber: matchNumber,
+                              allianceId: _allianceId,
+                              autoPositionId: _autoPosition.name,
+                              autoTopScored: _autoTopScored,
+                              autoMiddleScored: _autoMiddleScored,
+                              autoBottomScored: _autoBottomScored,
+                              leftCommunity: _leftCommunity,
+                              docked: _docked,
+                              engaged: _engaged,
+                              teleopCycles: _teleopCycles,
+                              teleopTopScored: _teleopTopScored,
+                              teleopMiddleScored: _teleopMiddleScored,
+                              teleopBottomScored: _teleopBottomScored,
+                              takingMoreFromDoubleSubstation:
+                                  _takingMoreFromDoubleSubstation,
+                              coopBonus: _coopBonus,
+                              wasDefended: _wasDefended,
+                              floorPickupId: _floorPickupId,
+                              pickedUpPieces: _floorPickupId != 'none'
+                                  ? _pickedUpPieces
+                                  : null,
+                              finalStatusId: _finalStatusId,
+                              dockingTimer: _finalStatusId == 'docked' ||
+                                      _finalStatusId == 'engaged'
+                                  ? _dockingTimer
+                                  : null,
+                              allianceRobots: _finalStatusId == 'docked' ||
+                                      _finalStatusId == 'engaged'
+                                  ? _allianceRobots
+                                  : null,
+                              driverSkillId: _driverSkillId,
+                              speedRating: _speedRating,
+                              missedPieces: _missedPieces,
+                              died: _died,
+                              tippy: _tippy,
+                              mechFail: _mechFail,
+                              defense: _defense,
+                              yellowCard: _yellowCard,
+                              redCard: _redCard,
+                              yellowCardMotive: _yellowCard
+                                  ? _yellowCardMotiveController.text
+                                  : null,
+                              redCardMotive: _redCard
+                                  ? _redCardMotiveController.text
+                                  : null,
+                              comment: _commentController.text,
+                              scoutId: scoutDataProvider.scoutUser!.id,
+                              scoutName: scoutDataProvider.scoutUser!.name,
+                              dateTimeCreated: DateTime.now(),
+                            );
 
-                          if (context.mounted) {
-                            Navigator.of(context).popAndPushNamed(
-                              QRCodeScreen.routeName,
-                              arguments: jsonRobot,
+                            // Saving robot in-state and locally
+                            final robotsProvider = Provider.of<RobotsProvider>(
+                              context,
+                              listen: false,
+                            );
+
+                            if (_isEditing) {
+                              await robotsProvider.editRobot(
+                                  robot, _previousId);
+                            } else {
+                              await robotsProvider.addRobot(robot);
+                            }
+
+                            setState(() {
+                              _isLoading = false;
+                            });
+
+                            final String jsonRobot =
+                                encoder.convert(robot.toSQLMap());
+
+                            if (context.mounted) {
+                              Navigator.of(context).popAndPushNamed(
+                                QRCodeScreen.routeName,
+                                arguments: jsonRobot,
+                              );
+                            }
+                          } catch (err) {
+                            debugPrint(err.toString());
+
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  insetPadding:
+                                      const EdgeInsets.fromLTRB(20, 80, 20, 15),
+                                  alignment: Alignment.center,
+                                  elevation: 8,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height: 10),
+                                          const Icon(
+                                            Icons.error_rounded,
+                                            color: Color.fromARGB(
+                                              255,
+                                              255,
+                                              65,
+                                              65,
+                                            ),
+                                            size: 40,
+                                          ),
+                                          const SizedBox(height: 7),
+                                          const Text(
+                                            'Error',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            err.toString(),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                            children: [
+                                              const Spacer(),
+                                              CupertinoButton(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: const Text(
+                                                  'OK',
+                                                  style: TextStyle(
+                                                    color:
+                                                        Colors.lightBlueAccent,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             );
                           }
                         },

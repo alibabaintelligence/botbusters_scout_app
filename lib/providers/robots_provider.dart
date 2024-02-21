@@ -34,38 +34,26 @@ class RobotsProvider with ChangeNotifier {
             teamNumber: robotMap['teamNumber'],
             matchNumber: robotMap['matchNumber'],
             allianceId: robotMap['allianceId'],
-            autoPositionId: robotMap['autoPositionId'],
-            autoTopScored: robotMap['autoTopScored'],
-            autoMiddleScored: robotMap['autoMiddleScored'],
-            autoBottomScored: robotMap['autoBottomScored'],
             leftCommunity: robotMap['leftCommunity'] == 0 ? false : true,
-            docked: robotMap['docked'] == 0 ? false : true,
-            engaged: robotMap['engaged'] == 0 ? false : true,
-            teleopCycles: robotMap['teleopCycles'],
-            teleopTopScored: robotMap['teleopTopScored'],
-            teleopMiddleScored: robotMap['teleopMiddleScored'],
-            teleopBottomScored: robotMap['teleopBottomScored'],
-            takingMoreFromDoubleSubstation:
-                robotMap['takingMoreFromDoubleSubstation'] == 0 ? false : true,
-            coopBonus: robotMap['coopBonus'] == 0 ? false : true,
-            wasDefended: robotMap['wasDefended'] == 0 ? false : true,
-            floorPickupId: robotMap['floorPickupId'],
-            pickedUpPieces: robotMap['pickedUpPieces'],
-            dockingTimer: robotMap['dockingTimer'],
-            finalStatusId: robotMap['finalStatusId'],
-            allianceRobots: robotMap['allianceRobots'],
-            driverSkillId: robotMap['driverSkillId'],
-            speedRating: robotMap['speedRating'],
-            missedPieces:
-                robotMap['missedPieces'], // ! WE CHANGED FROM BOOL TO INT
-            died: robotMap['died'] == 0 ? false : true,
-            tippy: robotMap['tippy'] == 0 ? false : true,
-            mechFail: robotMap['mechFail'] == 0 ? false : true,
-            defense: robotMap['defense'] == 0 ? false : true,
+            autoAmpNotes: robotMap['autoAmpNotes'], // !
+            autoSpeakerNotes: robotMap['autoSpeakerNotes'], // !
+            teleopAmpNotes: robotMap['teleopAmpNotes'], // !
+            teleopAmpNotesX2: robotMap['teleopAmpNotesX2'], // !
+            teleopSpeakerNotes: robotMap['teleopSpeakerNotes'], // !
+            parked: robotMap['parked'] == 0 ? false : true, // !
+            onstage: robotMap['onstage'] == 0 ? false : true, // !
+            notePickupId: robotMap['notePickupId'], // !
+            spotlight: robotMap['spotlight'] == 0 ? false : true, // !
+            noteInTrap: robotMap['noteInTrap'] == 0 ? false : true, // !
             yellowCard: robotMap['yellowCard'] == 0 ? false : true,
             redCard: robotMap['redCard'] == 0 ? false : true,
             yellowCardMotive: robotMap['yellowCardMotive'],
             redCardMotive: robotMap['redCardMotive'],
+            driverSkillId: robotMap['driverSkillId'],
+            died: robotMap['died'] == 0 ? false : true,
+            tippy: robotMap['tippy'] == 0 ? false : true,
+            mechFail: robotMap['mechFail'] == 0 ? false : true,
+            defense: robotMap['defense'] == 0 ? false : true,
             comment: robotMap['comment'],
             scoutId: robotMap['scoutId'],
             scoutName: robotMap['scoutName'],

@@ -46,15 +46,6 @@ class _AllianceButtonsState extends State<AllianceButtons> {
               color: allianceId == 'blue1'
                   ? const Color.fromARGB(255, 36, 52, 133)
                   : const Color.fromARGB(255, 64, 64, 64),
-              boxShadow: allianceId == 'blue1'
-                  ? [
-                      const BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                        color: Color.fromRGBO(20, 0, 255, 0.5),
-                      )
-                    ]
-                  : null,
             ),
             child: const Column(
               mainAxisSize: MainAxisSize.min,
@@ -98,15 +89,6 @@ class _AllianceButtonsState extends State<AllianceButtons> {
               color: allianceId == 'blue2'
                   ? const Color.fromARGB(255, 36, 52, 133)
                   : const Color.fromARGB(255, 64, 64, 64),
-              boxShadow: allianceId == 'blue2'
-                  ? [
-                      const BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                        color: Color.fromRGBO(20, 0, 255, 0.5),
-                      )
-                    ]
-                  : null,
             ),
             child: const Column(
               mainAxisSize: MainAxisSize.min,
@@ -150,15 +132,6 @@ class _AllianceButtonsState extends State<AllianceButtons> {
               color: allianceId == 'blue3'
                   ? const Color.fromARGB(255, 36, 52, 133)
                   : const Color.fromARGB(255, 64, 64, 64),
-              boxShadow: allianceId == 'blue3'
-                  ? [
-                      const BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                        color: Color.fromRGBO(20, 0, 255, 0.5),
-                      )
-                    ]
-                  : null,
             ),
             child: const Column(
               mainAxisSize: MainAxisSize.min,
@@ -202,15 +175,6 @@ class _AllianceButtonsState extends State<AllianceButtons> {
               color: allianceId == 'red1'
                   ? const Color.fromARGB(255, 133, 36, 36)
                   : const Color.fromARGB(255, 64, 64, 64),
-              boxShadow: allianceId == 'red1'
-                  ? [
-                      const BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                        color: Color.fromRGBO(255, 0, 0, 0.5),
-                      )
-                    ]
-                  : null,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -254,15 +218,6 @@ class _AllianceButtonsState extends State<AllianceButtons> {
               color: allianceId == 'red2'
                   ? const Color.fromARGB(255, 133, 36, 36)
                   : const Color.fromARGB(255, 64, 64, 64),
-              boxShadow: allianceId == 'red2'
-                  ? [
-                      const BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                        color: Color.fromRGBO(255, 0, 0, 0.5),
-                      )
-                    ]
-                  : null,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -306,15 +261,6 @@ class _AllianceButtonsState extends State<AllianceButtons> {
               color: allianceId == 'red3'
                   ? const Color.fromARGB(255, 133, 36, 36)
                   : const Color.fromARGB(255, 64, 64, 64),
-              boxShadow: allianceId == 'red3'
-                  ? [
-                      const BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                        color: Color.fromRGBO(255, 0, 0, 0.5),
-                      )
-                    ]
-                  : null,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

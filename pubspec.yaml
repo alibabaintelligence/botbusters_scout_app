@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.0.5
   sqflite: ^2.2.4+1
   flutter_svg: ^2.0.3
+  uuid: ^4.2.2
   path:
 
 dev_dependencies:
@@ -88,10 +89,14 @@ flutter:
     - assets/svgs/finalStatus/engaged.svg
     - assets/svgs/finalStatus/failed.svg
     - assets/svgs/finalStatus/parked.svg
-    # Final Status
+    # Floor Pickup
     - assets/svgs/floorPickup/cones.svg
     - assets/svgs/floorPickup/cubes.svg
     - assets/svgs/floorPickup/both.svg
+    # Notes Pickup
+    - assets/svgs/notesPickup/source.svg
+    - assets/svgs/notesPickup/floor.svg
+    - assets/svgs/notesPickup/both.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

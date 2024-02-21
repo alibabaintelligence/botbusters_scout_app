@@ -92,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (snapshot.connectionState != ConnectionState.done) {
                       return const CupertinoActivityIndicator();
                     }
-
                     if (_scoutDataProvider.scoutUser == null) {
                       return Form(
                         key: _signInKey,
@@ -306,12 +305,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16.0),
-                                    color: const Color.fromRGBO(
-                                      78,
-                                      78,
-                                      78,
-                                      1.0,
-                                    ),
+                                    color:
+                                        const Color.fromRGBO(78, 78, 78, 1.0),
                                   ),
                                   child: const Column(
                                     mainAxisSize: MainAxisSize.min,

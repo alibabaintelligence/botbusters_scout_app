@@ -60,7 +60,7 @@ class _CounterFieldState extends State<CounterField> {
           padding: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 2, 143, 230),
+              color: const Color.fromARGB(255, 2, 100, 255),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.all(2.0),

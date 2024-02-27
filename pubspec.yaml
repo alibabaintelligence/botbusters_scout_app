@@ -98,6 +98,8 @@ flutter:
     - assets/svgs/notesPickup/source.svg
     - assets/svgs/notesPickup/floor.svg
     - assets/svgs/notesPickup/both.svg
+    # Spotlights
+    - assets/svgs/spotlights.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:botbusters_scout_app/providers/robots_provider.dart';
 import 'package:botbusters_scout_app/widgets/notes_pickup_buttons.dart';
+import 'package:botbusters_scout_app/widgets/spotlight_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -48,12 +50,14 @@ class _SendScreenState extends State<SendScreen> {
 
   // Teleop
   int _teleopAmpNotes = 0;
-  int _teleopAmpNotesX2 = 0;
+  int _teleopSpeakerNotesX2 = 0;
   int _teleopSpeakerNotes = 0;
   bool _parked = false;
   bool _onstage = false;
   String _notesPickupId = 'source';
-  bool _spotlight = false;
+  String _spotlight1Id = 'notAttempted';
+  String _spotlight2Id = 'notAttempted';
+  String _spotlight3Id = 'notAttempted';
   bool _noteInTrap = false;
 
   // Extras
@@ -99,12 +103,14 @@ class _SendScreenState extends State<SendScreen> {
 
         // Tele-Op
         _teleopAmpNotes = editRobotData.teleopAmpNotes;
-        _teleopAmpNotesX2 = editRobotData.teleopAmpNotesX2;
+        _teleopSpeakerNotesX2 = editRobotData.teleopSpeakerNotesX2;
         _teleopSpeakerNotes = editRobotData.teleopSpeakerNotes;
         _parked = editRobotData.parked;
         _onstage = editRobotData.onstage;
         _notesPickupId = editRobotData.notePickupId;
-        _spotlight = editRobotData.spotlight;
+        _spotlight1Id = editRobotData.spotlight1Id;
+        _spotlight2Id = editRobotData.spotlight2Id;
+        _spotlight3Id = editRobotData.spotlight3Id;
         _noteInTrap = editRobotData.noteInTrap;
 
         // Extras
@@ -334,12 +340,14 @@ class _SendScreenState extends State<SendScreen> {
                             autoAmpNotes: _autoAmpNotes,
                             autoSpeakerNotes: _autoSpeakerNotes,
                             teleopAmpNotes: _teleopAmpNotes,
-                            teleopAmpNotesX2: _teleopAmpNotesX2,
+                            teleopSpeakerNotesX2: _teleopSpeakerNotesX2,
                             teleopSpeakerNotes: _teleopSpeakerNotes,
                             parked: _parked,
                             onstage: _onstage,
                             notePickupId: _notesPickupId,
-                            spotlight: _spotlight,
+                            spotlight1Id: _spotlight1Id,
+                            spotlight2Id: _spotlight2Id,
+                            spotlight3Id: _spotlight3Id,
                             noteInTrap: _noteInTrap,
                             yellowCard: _yellowCard,
                             redCard: _redCard,
@@ -366,9 +374,9 @@ class _SendScreenState extends State<SendScreen> {
                           );
 
                           if (_isEditing) {
-                            await robotsProvider.editRobot(robot, _previousId);
+                            await robotsProvider.editMatch(robot, _previousId);
                           } else {
-                            await robotsProvider.addRobot(robot);
+                            await robotsProvider.addMatch(robot);
                           }
 
                           setState(() {
@@ -654,69 +662,6 @@ class _SendScreenState extends State<SendScreen> {
                                   const SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      const Text(
-                                        'Amp Notes',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopAmpNotes,
-                                        whenChanged: (newValue) {
-                                          _teleopAmpNotes = newValue;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Amp Notes X2',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopAmpNotesX2,
-                                        whenChanged: (newValue) {
-                                          _teleopAmpNotesX2 = newValue;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Speaker Notes',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopSpeakerNotes,
-                                        whenChanged: (newValue) {
-                                          _teleopSpeakerNotes = newValue;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    children: [
                                       FlutterSwitch(
                                         value: _parked,
                                         onToggle: (newValue) {
@@ -819,47 +764,114 @@ class _SendScreenState extends State<SendScreen> {
                                       });
                                     },
                                   ),
-                                  const SizedBox(height: 30),
+                                  const SizedBox(height: 20.0),
                                   Row(
                                     children: [
-                                      FlutterSwitch(
-                                        value: _spotlight,
-                                        onToggle: (newValue) {
-                                          setState(() {
-                                            _spotlight = newValue;
-                                          });
-                                        },
-                                        activeColor: const Color.fromRGBO(
-                                            0, 180, 140, 1.0),
-                                        inactiveColor: const Color.fromRGBO(
-                                            100, 100, 100, 1.0),
-                                        borderRadius: 12,
-                                        width: 47,
-                                        height: 27,
-                                        toggleSize: 16,
-                                        // iq 150 papu, pa que no se corra el toggle del switch le pongo
-                                        // un border del color verde, y así se ve más pequeño
-                                        activeToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              0, 220, 167, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
-                                        ),
-                                        inactiveToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              200, 200, 200, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
+                                      const Text(
+                                        'Speaker Notes',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      const SizedBox(width: 25),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopSpeakerNotes,
+                                        whenChanged: (newValue) {
+                                          _teleopSpeakerNotes = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 15.0),
+                                  Row(
+                                    children: [
                                       const Text(
-                                        'Spotlight',
+                                        'Speaker Notes X2',
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
+                                      ),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopSpeakerNotesX2,
+                                        whenChanged: (newValue) {
+                                          _teleopSpeakerNotesX2 = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 15.0),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        'Amp Notes',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopAmpNotes,
+                                        whenChanged: (newValue) {
+                                          _teleopAmpNotes = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 30),
+                                  const Text(
+                                    'Spotlights (click to change)',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 25),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SpotlightButton(
+                                            initialSpotlightButtonId:
+                                                _spotlight1Id,
+                                            onButtonPressed: (newId) {
+                                              _spotlight1Id = newId;
+                                            },
+                                          ),
+                                          const SizedBox(width: 15.0),
+                                          SvgPicture.asset(
+                                            'assets/svgs/spotlights.svg',
+                                          ),
+                                          const SizedBox(width: 15.0),
+                                          SpotlightButton(
+                                            initialSpotlightButtonId:
+                                                _spotlight2Id,
+                                            onButtonPressed: (newId) {
+                                              _spotlight2Id = newId;
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 15.0),
+                                      SpotlightButton(
+                                        initialSpotlightButtonId: _spotlight3Id,
+                                        onButtonPressed: (newId) {
+                                          _spotlight3Id = newId;
+                                        },
                                       ),
                                     ],
                                   ),

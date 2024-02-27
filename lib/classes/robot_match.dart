@@ -7,12 +7,14 @@ class RobotMatch {
   final int autoAmpNotes; // !
   final int autoSpeakerNotes; // !
   final int teleopAmpNotes; // !
-  final int teleopAmpNotesX2; // !
+  final int teleopSpeakerNotesX2; // !
   final int teleopSpeakerNotes; // !
   final bool parked; // !
   final bool onstage; // !
   final String notePickupId; // !
-  final bool spotlight; // !
+  final String spotlight1Id; // !
+  final String spotlight2Id; // !
+  final String spotlight3Id; // !
   final bool noteInTrap; // !
   final bool yellowCard;
   final bool redCard;
@@ -37,12 +39,14 @@ class RobotMatch {
     required this.autoAmpNotes, // !
     required this.autoSpeakerNotes, // !
     required this.teleopAmpNotes, // !
-    required this.teleopAmpNotesX2, // !
+    required this.teleopSpeakerNotesX2, // !
     required this.teleopSpeakerNotes, // !
     required this.parked, // !
     required this.onstage, // !
     required this.notePickupId, // !
-    required this.spotlight, // !
+    required this.spotlight1Id, // !
+    required this.spotlight2Id, // !
+    required this.spotlight3Id, // !
     required this.noteInTrap, // !
     required this.yellowCard,
     required this.redCard,
@@ -68,13 +72,15 @@ class RobotMatch {
       'leftCommunity': leftCommunity ? 1 : 0,
       'autoAmpNotes': autoAmpNotes, // !
       'autoSpeakerNotes': autoSpeakerNotes, // !
-      'teleopAmpNotes': teleopAmpNotes, // !
-      'teleopAmpNotesX2': teleopAmpNotesX2, // !
       'teleopSpeakerNotes': teleopSpeakerNotes, // !
+      'teleopSpeakerNotesX2': teleopSpeakerNotesX2, // !
+      'teleopAmpNotes': teleopAmpNotes, // !
       'parked': parked ? 1 : 0, // !
       'onstage': onstage ? 1 : 0, // !
       'notePickupId': notePickupId, // !
-      'spotlight': spotlight ? 1 : 0, // !
+      'spotlight1Id': spotlight1Id, // !
+      'spotlight2Id': spotlight2Id, // !
+      'spotlight3Id': spotlight3Id, // !
       'noteInTrap': noteInTrap ? 1 : 0, // !
       'yellowCard': yellowCard ? 1 : 0,
       'redCard': redCard ? 1 : 0,

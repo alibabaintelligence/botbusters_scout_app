@@ -4,52 +4,52 @@ import 'package:path/path.dart' as p;
 import '../classes/robot_match.dart';
 
 abstract class DBHelper {
-  static Future<void> addRobot(RobotMatch robot) async {
+  static Future<void> addMatch(RobotMatch match) async {
     final database = await initDatabase();
 
     await database.insert(
-      'robots',
-      robot.toSQLMap(),
+      'matches',
+      match.toSQLMap(),
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
     );
   }
 
-  static Future<void> editRobot(RobotMatch robot, String previousId) async {
+  static Future<void> editMatch(RobotMatch matches, String previousId) async {
     final database = await initDatabase();
 
     await database.update(
-      'robots',
-      robot.toSQLMap(),
+      'matches',
+      matches.toSQLMap(),
       where: 'id = ?',
       whereArgs: [previousId],
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
     );
   }
 
-  static Future<void> deleteRobot(RobotMatch robot) async {
+  static Future<void> deleteMatch(RobotMatch matches) async {
     final database = await initDatabase();
 
     await database.delete(
-      'robots',
+      'matches',
       where: 'id = ?',
-      whereArgs: [robot.id],
+      whereArgs: [matches.id],
     );
   }
 
-  static Future<List<Map<String, dynamic>>> getRobotsData() async {
+  static Future<List<Map<String, dynamic>>> getMatchesData() async {
     final database = await initDatabase();
-    return database.query('robots');
+    return database.query('matches');
   }
 
   static Future<sql.Database> initDatabase() async {
     final dbPath = await sql.getDatabasesPath();
 
     return sql.openDatabase(
-      p.join(dbPath, 'robots_database.db'),
+      p.join(dbPath, 'matches_database.db'),
       onCreate: (db, version) {
         return db.execute(
           '''
-          CREATE TABLE robots(
+          CREATE TABLE matches(
             id TEXT PRIMARY KEY,
             teamNumber INTEGER,
             matchNumber INTEGER,
@@ -61,13 +61,15 @@ abstract class DBHelper {
             leftCommunity BOOLEAN,
             autoAmpNotes INTEGER,
             autoSpeakerNotes INTEGER,
-            teleopAmpNotes INTEGER,
-            teleopAmpNotesX2 INTEGER,
             teleopSpeakerNotes INTEGER,
+            teleopSpeakerNotesX2 INTEGER,
+            teleopAmpNotes INTEGER,
             parked BOOLEAN,
             onstage BOOLEAN,
             notePickupId TEXT,
-            spotlight BOOLEAN,
+            spotlight1Id TEXT,
+            spotlight2Id TEXT,
+            spotlight3Id TEXT,
             noteInTrap BOOLEAN,
             yellowCard BOOLEAN,
             redCard BOOLEAN,
@@ -88,6 +90,14 @@ abstract class DBHelper {
         );
       },
       version: 1,
+    );
+  }
+
+  static Future<void> deleteDatabase() async {
+    final dbPath = await sql.getDatabasesPath();
+
+    return sql.deleteDatabase(
+      p.join(dbPath, 'matches_database.db'),
     );
   }
 }

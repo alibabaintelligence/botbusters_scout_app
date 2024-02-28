@@ -596,7 +596,7 @@ class _SendScreenState extends State<SendScreen> {
                                   ),
                                   const SizedBox(width: 25),
                                   const Text(
-                                    'Left Community',
+                                    'Leave',
                                     style: TextStyle(
                                       fontSize: 15,
                                     ),
@@ -666,6 +666,9 @@ class _SendScreenState extends State<SendScreen> {
                                         value: _parked,
                                         onToggle: (newValue) {
                                           setState(() {
+                                            if (newValue == true) {
+                                              _onstage = false;
+                                            }
                                             _parked = newValue;
                                           });
                                         },
@@ -710,6 +713,9 @@ class _SendScreenState extends State<SendScreen> {
                                         value: _onstage,
                                         onToggle: (newValue) {
                                           setState(() {
+                                            if (newValue == true) {
+                                              _parked = false;
+                                            }
                                             _onstage = newValue;
                                           });
                                         },

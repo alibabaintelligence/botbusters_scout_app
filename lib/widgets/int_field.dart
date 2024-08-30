@@ -10,7 +10,7 @@ class IntField extends StatelessWidget {
   final TextEditingController controller;
   final String text;
 
-  final int max = 9999;
+  final int max = 99999;
   final int min = 0;
 
   @override

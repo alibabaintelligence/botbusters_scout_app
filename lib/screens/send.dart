@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:botbusters_scout_app/providers/robots_provider.dart';
-import 'package:botbusters_scout_app/widgets/notes_pickup_buttons.dart';
-import 'package:botbusters_scout_app/widgets/spotlight_button.dart';
+import 'package:botbusters_scout_app/widgets/coral_pickup_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -15,8 +13,8 @@ import 'package:botbusters_scout_app/providers/scout_data_provider.dart';
 import 'package:botbusters_scout_app/screens/qr_screen.dart';
 import 'package:botbusters_scout_app/widgets/alliance_buttons.dart';
 import 'package:botbusters_scout_app/widgets/counter_field.dart';
-import 'package:botbusters_scout_app/widgets/driver_skill_buttons.dart';
 import 'package:botbusters_scout_app/widgets/int_field.dart';
+import 'package:botbusters_scout_app/widgets/barge_widget.dart';
 
 enum Tabs {
   initialData,
@@ -37,6 +35,49 @@ class SendScreen extends StatefulWidget {
 class _SendScreenState extends State<SendScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  /*
+  Basic Data
+  final String id;
+  final int teamNumber;
+  final int matchNumber;
+  final String allianceId;
+
+  Autonomous
+  final bool leftCommunity;
+  final int autoCoralL1; // !
+  final int autoCoralL2; // !
+  final int autoCoralL3; // !
+  final int autoCoralL4; // !
+  final int autoAlgaeProcessor; // !
+  final int autoAlgaeNet; // !
+
+  Teleop
+  final int teleopCoralL1; // !
+  final int teleopCoralL2; // !
+  final int teleopCoralL3; // !
+  final int teleopCoralL4; // !
+  final int teleopAlgaeProcessor; // !
+  final int teleopAlgaeNet; // !
+  final String bargeId; // notAttempted | failed | parked | shallow | deep
+
+  Extras
+  final bool yellowCard;
+  final bool redCard;
+  final String? yellowCardMotive;
+  final String? redCardMotive;
+  final String coralPickupId; // !
+
+  final bool died;
+  final bool tippy;
+  final bool mechFail;
+  final bool defense;
+  final String comment;
+
+  final String scoutId;
+  final String scoutName;
+  final DateTime dateTimeCreated;
+    */
+
   // Basic Data
   final _teamNumberController = TextEditingController();
   final _matchNumberController = TextEditingController();
@@ -45,20 +86,21 @@ class _SendScreenState extends State<SendScreen> {
 
   // Autonomous
   bool _leftCommunity = false;
-  int _autoAmpNotes = 0;
-  int _autoSpeakerNotes = 0;
+  int _autoCoralL1 = 0;
+  int _autoCoralL2 = 0;
+  int _autoCoralL3 = 0;
+  int _autoCoralL4 = 0;
+  int _autoAlgaeProcessor = 0;
+  int _autoAlgaeNet = 0;
 
   // Teleop
-  int _teleopAmpNotes = 0;
-  int _teleopSpeakerNotesX2 = 0;
-  int _teleopSpeakerNotes = 0;
-  bool _parked = false;
-  bool _onstage = false;
-  String _notesPickupId = 'source';
-  String _spotlight1Id = 'notAttempted';
-  String _spotlight2Id = 'notAttempted';
-  String _spotlight3Id = 'notAttempted';
-  bool _noteInTrap = false;
+  int _teleopCoralL1 = 0;
+  int _teleopCoralL2 = 0;
+  int _teleopCoralL3 = 0;
+  int _teleopCoralL4 = 0;
+  int _teleopAlgaeProcessor = 0;
+  int _teleopAlgaeNet = 0;
+  String _bargeId = 'notAttempted';
 
   // Extras
   bool _yellowCard = false;
@@ -66,8 +108,7 @@ class _SendScreenState extends State<SendScreen> {
   // * These two depend on _redCard & _yellowCard
   final _yellowCardMotiveController = TextEditingController();
   final _redCardMotiveController = TextEditingController();
-
-  String _driverSkillId = 'notObs';
+  String _coralPickupId = 'source';
 
   bool _died = false;
   bool _tippy = false;
@@ -98,27 +139,28 @@ class _SendScreenState extends State<SendScreen> {
 
         // Autonomous
         _leftCommunity = editRobotData.leftCommunity;
-        _autoAmpNotes = editRobotData.autoAmpNotes;
-        _autoSpeakerNotes = editRobotData.autoSpeakerNotes;
+        _autoCoralL1 = editRobotData.autoCoralL1;
+        _autoCoralL2 = editRobotData.autoCoralL2;
+        _autoCoralL3 = editRobotData.autoCoralL3;
+        _autoCoralL4 = editRobotData.autoCoralL4;
+        _autoAlgaeProcessor = editRobotData.autoAlgaeProcessor;
+        _autoAlgaeNet = editRobotData.autoAlgaeNet;
 
         // Tele-Op
-        _teleopAmpNotes = editRobotData.teleopAmpNotes;
-        _teleopSpeakerNotesX2 = editRobotData.teleopSpeakerNotesX2;
-        _teleopSpeakerNotes = editRobotData.teleopSpeakerNotes;
-        _parked = editRobotData.parked;
-        _onstage = editRobotData.onstage;
-        _notesPickupId = editRobotData.notePickupId;
-        _spotlight1Id = editRobotData.spotlight1Id;
-        _spotlight2Id = editRobotData.spotlight2Id;
-        _spotlight3Id = editRobotData.spotlight3Id;
-        _noteInTrap = editRobotData.noteInTrap;
+        _teleopCoralL1 = editRobotData.teleopCoralL1;
+        _teleopCoralL2 = editRobotData.teleopCoralL2;
+        _teleopCoralL3 = editRobotData.teleopCoralL3;
+        _teleopCoralL4 = editRobotData.teleopCoralL4;
+        _teleopAlgaeProcessor = editRobotData.teleopAlgaeProcessor;
+        _teleopAlgaeNet = editRobotData.teleopAlgaeNet;
+        _bargeId = editRobotData.bargeId;
 
         // Extras
         _yellowCard = editRobotData.yellowCard;
         _redCard = editRobotData.redCard;
         _yellowCardMotiveController.text = editRobotData.yellowCardMotive ?? '';
         _redCardMotiveController.text = editRobotData.redCardMotive ?? '';
-        _driverSkillId = editRobotData.driverSkillId;
+        _coralPickupId = editRobotData.coralPickupId;
         _died = editRobotData.died;
         _tippy = editRobotData.tippy;
         _mechFail = editRobotData.mechFail;
@@ -337,18 +379,19 @@ class _SendScreenState extends State<SendScreen> {
                             matchNumber: matchNumber,
                             allianceId: _allianceId,
                             leftCommunity: _leftCommunity,
-                            autoAmpNotes: _autoAmpNotes,
-                            autoSpeakerNotes: _autoSpeakerNotes,
-                            teleopAmpNotes: _teleopAmpNotes,
-                            teleopSpeakerNotesX2: _teleopSpeakerNotesX2,
-                            teleopSpeakerNotes: _teleopSpeakerNotes,
-                            parked: _parked,
-                            onstage: _onstage,
-                            notePickupId: _notesPickupId,
-                            spotlight1Id: _spotlight1Id,
-                            spotlight2Id: _spotlight2Id,
-                            spotlight3Id: _spotlight3Id,
-                            noteInTrap: _noteInTrap,
+                            autoCoralL1: _autoCoralL1,
+                            autoCoralL2: _autoCoralL2,
+                            autoCoralL3: _autoCoralL3,
+                            autoCoralL4: _autoCoralL4,
+                            autoAlgaeProcessor: _autoAlgaeProcessor,
+                            autoAlgaeNet: _autoAlgaeNet,
+                            teleopCoralL1: _teleopCoralL1,
+                            teleopCoralL2: _teleopCoralL2,
+                            teleopCoralL3: _teleopCoralL3,
+                            teleopCoralL4: _teleopCoralL4,
+                            teleopAlgaeProcessor: _teleopAlgaeProcessor,
+                            teleopAlgaeNet: _teleopAlgaeNet,
+                            bargeId: _bargeId,
                             yellowCard: _yellowCard,
                             redCard: _redCard,
                             yellowCardMotive: _yellowCard
@@ -356,7 +399,7 @@ class _SendScreenState extends State<SendScreen> {
                                 : null,
                             redCardMotive:
                                 _redCard ? _redCardMotiveController.text : null,
-                            driverSkillId: _driverSkillId,
+                            coralPickupId: _coralPickupId,
                             died: _died,
                             tippy: _tippy,
                             mechFail: _mechFail,
@@ -607,7 +650,7 @@ class _SendScreenState extends State<SendScreen> {
                               Row(
                                 children: [
                                   const Text(
-                                    'Amp Notes',
+                                    'Coral L1',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -617,9 +660,71 @@ class _SendScreenState extends State<SendScreen> {
                                   CounterField(
                                     max: 9999,
                                     min: 0,
-                                    value: _autoAmpNotes,
+                                    value: _autoCoralL1,
                                     whenChanged: (newValue) {
-                                      _autoAmpNotes = newValue;
+                                      _autoCoralL1 = newValue;
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Coral L2',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  CounterField(
+                                    max: 9999,
+                                    min: 0,
+                                    value: _autoCoralL2,
+                                    whenChanged: (newValue) {
+                                      _autoCoralL2 = newValue;
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Coral L3',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  CounterField(
+                                    max: 9999,
+                                    min: 0,
+                                    value: _autoCoralL3,
+                                    whenChanged: (newValue) {
+                                      _autoCoralL3 = newValue;
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Coral L4',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  CounterField(
+                                    max: 9999,
+                                    min: 0,
+                                    value: _autoCoralL4,
+                                    whenChanged: (newValue) {
+                                      _autoCoralL4 = newValue;
                                     },
                                   ),
                                 ],
@@ -628,7 +733,7 @@ class _SendScreenState extends State<SendScreen> {
                               Row(
                                 children: [
                                   const Text(
-                                    'Speaker Notes',
+                                    'Algae Processor',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -638,9 +743,30 @@ class _SendScreenState extends State<SendScreen> {
                                   CounterField(
                                     max: 9999,
                                     min: 0,
-                                    value: _autoSpeakerNotes,
+                                    value: _autoAlgaeProcessor,
                                     whenChanged: (newValue) {
-                                      _autoSpeakerNotes = newValue;
+                                      _autoAlgaeProcessor = newValue;
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Algae Net',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  CounterField(
+                                    max: 9999,
+                                    min: 0,
+                                    value: _autoAlgaeNet,
+                                    whenChanged: (newValue) {
+                                      _autoAlgaeNet = newValue;
                                     },
                                   ),
                                 ],
@@ -659,273 +785,150 @@ class _SendScreenState extends State<SendScreen> {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
+                                  const SizedBox(height: 20.0),
                                   const SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      FlutterSwitch(
-                                        value: _parked,
-                                        onToggle: (newValue) {
-                                          setState(() {
-                                            if (newValue == true) {
-                                              _onstage = false;
-                                            }
-                                            _parked = newValue;
-                                          });
-                                        },
-                                        activeColor: const Color.fromRGBO(
-                                            0, 180, 140, 1.0),
-                                        inactiveColor: const Color.fromRGBO(
-                                            100, 100, 100, 1.0),
-                                        borderRadius: 12,
-                                        width: 47,
-                                        height: 27,
-                                        toggleSize: 16,
-                                        // iq 150 papu, pa que no se corra el toggle del switch le pongo
-                                        // un border del color verde, y así se ve más pequeño
-                                        activeToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              0, 220, 167, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
-                                        ),
-                                        inactiveToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              200, 200, 200, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
+                                      const Text(
+                                        'Coral L1',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      const SizedBox(width: 25),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopCoralL1,
+                                        whenChanged: (newValue) {
+                                          _teleopCoralL1 = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
                                       const Text(
-                                        'Parked',
+                                        'Coral L2',
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
+                                      ),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopCoralL2,
+                                        whenChanged: (newValue) {
+                                          _teleopCoralL2 = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        'Coral L3',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopCoralL3,
+                                        whenChanged: (newValue) {
+                                          _teleopCoralL3 = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        'Coral L4',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopCoralL4,
+                                        whenChanged: (newValue) {
+                                          _teleopCoralL4 = newValue;
+                                        },
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 15),
                                   Row(
                                     children: [
-                                      FlutterSwitch(
-                                        value: _onstage,
-                                        onToggle: (newValue) {
-                                          setState(() {
-                                            if (newValue == true) {
-                                              _parked = false;
-                                            }
-                                            _onstage = newValue;
-                                          });
-                                        },
-                                        activeColor: const Color.fromRGBO(
-                                            0, 180, 140, 1.0),
-                                        inactiveColor: const Color.fromRGBO(
-                                            100, 100, 100, 1.0),
-                                        borderRadius: 12,
-                                        width: 47,
-                                        height: 27,
-                                        toggleSize: 16,
-                                        // iq 150 papu, pa que no se corra el toggle del switch le pongo
-                                        // un border del color verde, y así se ve más pequeño
-                                        activeToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              0, 220, 167, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
-                                        ),
-                                        inactiveToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              200, 200, 200, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
+                                      const Text(
+                                        'Algae Processor',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      const SizedBox(width: 25),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopAlgaeProcessor,
+                                        whenChanged: (newValue) {
+                                          _teleopAlgaeProcessor = newValue;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
                                       const Text(
-                                        'Onstage',
+                                        'Algae Net',
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
+                                      ),
+                                      const Spacer(),
+                                      CounterField(
+                                        max: 9999,
+                                        min: 0,
+                                        value: _teleopAlgaeNet,
+                                        whenChanged: (newValue) {
+                                          _teleopAlgaeNet = newValue;
+                                        },
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 30),
                                   const Text(
-                                    'Notes Pickup',
+                                    'Barge Status',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   const SizedBox(height: 15),
-                                  NotesPickupButtons(
-                                    notesPickupId: _notesPickupId,
-                                    onButtonPressed: (newNotePickup) {
+                                  BargeWidget(
+                                    bargeId: _bargeId,
+                                    onButtonPressed: (newId) {
                                       setState(() {
-                                        _notesPickupId = newNotePickup;
+                                        _bargeId = newId;
                                       });
                                     },
                                   ),
-                                  const SizedBox(height: 20.0),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Speaker Notes',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopSpeakerNotes,
-                                        whenChanged: (newValue) {
-                                          _teleopSpeakerNotes = newValue;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15.0),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Speaker Notes X2',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopSpeakerNotesX2,
-                                        whenChanged: (newValue) {
-                                          _teleopSpeakerNotesX2 = newValue;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15.0),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Amp Notes',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopAmpNotes,
-                                        whenChanged: (newValue) {
-                                          _teleopAmpNotes = newValue;
-                                        },
-                                      ),
-                                    ],
-                                  ),
                                   const SizedBox(height: 30),
-                                  const Text(
-                                    'Spotlights (click to change)',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 25),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SpotlightButton(
-                                            initialSpotlightButtonId:
-                                                _spotlight1Id,
-                                            onButtonPressed: (newId) {
-                                              _spotlight1Id = newId;
-                                            },
-                                          ),
-                                          const SizedBox(width: 15.0),
-                                          SvgPicture.asset(
-                                            'assets/svgs/spotlights.svg',
-                                          ),
-                                          const SizedBox(width: 15.0),
-                                          SpotlightButton(
-                                            initialSpotlightButtonId:
-                                                _spotlight2Id,
-                                            onButtonPressed: (newId) {
-                                              _spotlight2Id = newId;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 15.0),
-                                      SpotlightButton(
-                                        initialSpotlightButtonId: _spotlight3Id,
-                                        onButtonPressed: (newId) {
-                                          _spotlight3Id = newId;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Row(
-                                    children: [
-                                      FlutterSwitch(
-                                        value: _noteInTrap,
-                                        onToggle: (newValue) {
-                                          setState(() {
-                                            _noteInTrap = newValue;
-                                          });
-                                        },
-                                        activeColor: const Color.fromRGBO(
-                                            0, 180, 140, 1.0),
-                                        inactiveColor: const Color.fromRGBO(
-                                            100, 100, 100, 1.0),
-                                        borderRadius: 12,
-                                        width: 47,
-                                        height: 27,
-                                        toggleSize: 16,
-                                        // iq 150 papu, pa que no se corra el toggle del switch le pongo
-                                        // un border del color verde, y así se ve más pequeño
-                                        activeToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              0, 220, 167, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
-                                        ),
-                                        inactiveToggleBorder: Border.all(
-                                          color: const Color.fromRGBO(
-                                              200, 200, 200, 1.0),
-                                          width: 1,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignInside,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 25),
-                                      const Text(
-                                        'Note In Trap',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
                                 ],
                               )
                             : Column(
@@ -1127,17 +1130,19 @@ class _SendScreenState extends State<SendScreen> {
                                     ),
                                   const SizedBox(height: 30),
                                   const Text(
-                                    'Driver Skill',
+                                    'Coral Pickup',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   const SizedBox(height: 15),
-                                  DriverSkillButtons(
-                                    driverSkillId: _driverSkillId,
-                                    onButtonPressed: (newId) {
-                                      _driverSkillId = newId;
+                                  CoralPickupButtons(
+                                    coralPickupId: _coralPickupId,
+                                    onButtonPressed: (newCoralPickup) {
+                                      setState(() {
+                                        _coralPickupId = newCoralPickup;
+                                      });
                                     },
                                   ),
                                   const SizedBox(height: 30),

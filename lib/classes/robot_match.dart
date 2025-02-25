@@ -4,23 +4,24 @@ class RobotMatch {
   final int matchNumber;
   final String allianceId;
   final bool leftCommunity;
-  final int autoAmpNotes; // !
-  final int autoSpeakerNotes; // !
-  final int teleopAmpNotes; // !
-  final int teleopSpeakerNotesX2; // !
-  final int teleopSpeakerNotes; // !
-  final bool parked; // !
-  final bool onstage; // !
-  final String notePickupId; // !
-  final String spotlight1Id; // !
-  final String spotlight2Id; // !
-  final String spotlight3Id; // !
-  final bool noteInTrap; // !
+  final int autoCoralL1; // !
+  final int autoCoralL2; // !
+  final int autoCoralL3; // !
+  final int autoCoralL4; // !
+  final int autoAlgaeProcessor; // !
+  final int autoAlgaeNet; // !
+  final int teleopCoralL1; // !
+  final int teleopCoralL2; // !
+  final int teleopCoralL3; // !
+  final int teleopCoralL4; // !
+  final int teleopAlgaeProcessor; // !
+  final int teleopAlgaeNet; // !
+  final String bargeId;
   final bool yellowCard;
   final bool redCard;
   final String? yellowCardMotive;
   final String? redCardMotive;
-  final String driverSkillId;
+  final String coralPickupId; // !
   final bool died;
   final bool tippy;
   final bool mechFail;
@@ -36,23 +37,24 @@ class RobotMatch {
     required this.matchNumber,
     required this.allianceId,
     required this.leftCommunity,
-    required this.autoAmpNotes, // !
-    required this.autoSpeakerNotes, // !
-    required this.teleopAmpNotes, // !
-    required this.teleopSpeakerNotesX2, // !
-    required this.teleopSpeakerNotes, // !
-    required this.parked, // !
-    required this.onstage, // !
-    required this.notePickupId, // !
-    required this.spotlight1Id, // !
-    required this.spotlight2Id, // !
-    required this.spotlight3Id, // !
-    required this.noteInTrap, // !
+    required this.autoCoralL1, // !
+    required this.autoCoralL2, // !
+    required this.autoCoralL3, // !
+    required this.autoCoralL4, // !
+    required this.autoAlgaeProcessor, // !
+    required this.autoAlgaeNet, // !
+    required this.teleopCoralL1, // !
+    required this.teleopCoralL2, // !
+    required this.teleopCoralL3, // !
+    required this.teleopCoralL4, // !
+    required this.teleopAlgaeProcessor, // !
+    required this.teleopAlgaeNet, // !
+    required this.bargeId,
     required this.yellowCard,
     required this.redCard,
     required this.yellowCardMotive,
     required this.redCardMotive,
-    required this.driverSkillId,
+    required this.coralPickupId, // !
     required this.died,
     required this.tippy,
     required this.mechFail,
@@ -70,23 +72,24 @@ class RobotMatch {
       'matchNumber': matchNumber,
       'allianceId': allianceId,
       'leftCommunity': leftCommunity ? 1 : 0,
-      'autoAmpNotes': autoAmpNotes, // !
-      'autoSpeakerNotes': autoSpeakerNotes, // !
-      'teleopSpeakerNotes': teleopSpeakerNotes, // !
-      'teleopSpeakerNotesX2': teleopSpeakerNotesX2, // !
-      'teleopAmpNotes': teleopAmpNotes, // !
-      'parked': parked ? 1 : 0, // !
-      'onstage': onstage ? 1 : 0, // !
-      'notePickupId': notePickupId, // !
-      'spotlight1Id': spotlight1Id, // !
-      'spotlight2Id': spotlight2Id, // !
-      'spotlight3Id': spotlight3Id, // !
-      'noteInTrap': noteInTrap ? 1 : 0, // !
+      'autoCoralL1': autoCoralL1, // !
+      'autoCoralL2': autoCoralL2, // !
+      'autoCoralL3': autoCoralL3, // !
+      'autoCoralL4': autoCoralL4, // !
+      'autoAlgaeProcessor': autoAlgaeProcessor, // !
+      'autoAlgaeNet': autoAlgaeNet, // !
+      'teleopCoralL1': teleopCoralL1, // !
+      'teleopCoralL2': teleopCoralL2, // !
+      'teleopCoralL3': teleopCoralL3, // !
+      'teleopCoralL4': teleopCoralL4, // !
+      'teleopAlgaeProcessor': teleopAlgaeProcessor, // !
+      'teleopAlgaeNet': teleopAlgaeNet, // !
+      'bargeId': bargeId,
       'yellowCard': yellowCard ? 1 : 0,
       'redCard': redCard ? 1 : 0,
       'yellowCardMotive': yellowCardMotive,
       'redCardMotive': redCardMotive,
-      'driverSkillId': driverSkillId,
+      'coralPickupId': coralPickupId, // !
       'died': died ? 1 : 0,
       'tippy': tippy ? 1 : 0,
       'mechFail': mechFail ? 1 : 0,

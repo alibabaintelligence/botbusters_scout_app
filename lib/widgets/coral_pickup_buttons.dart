@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class NotesPickupButtons extends StatefulWidget {
-  const NotesPickupButtons({
-    required this.notesPickupId,
+class CoralPickupButtons extends StatefulWidget {
+  const CoralPickupButtons({
+    required this.coralPickupId,
     required this.onButtonPressed,
     super.key,
   });
 
   final void Function(String) onButtonPressed;
-  final String notesPickupId;
+  final String coralPickupId;
 
   @override
-  State<NotesPickupButtons> createState() => _FloorPickupState();
+  State<CoralPickupButtons> createState() => _CoralPickupState();
 }
 
-class _FloorPickupState extends State<NotesPickupButtons> {
-  late String notesPickupId = widget.notesPickupId;
+class _CoralPickupState extends State<CoralPickupButtons> {
+  late String coralPickupId = widget.coralPickupId;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,8 @@ class _FloorPickupState extends State<NotesPickupButtons> {
         CupertinoButton(
           onPressed: () {
             setState(() {
-              notesPickupId = 'source';
-              widget.onButtonPressed(notesPickupId);
+              coralPickupId = 'source';
+              widget.onButtonPressed(coralPickupId);
             });
           },
           borderRadius: BorderRadius.circular(16.0),
@@ -43,7 +43,7 @@ class _FloorPickupState extends State<NotesPickupButtons> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
-              color: notesPickupId == 'source'
+              color: coralPickupId == 'source'
                   ? const Color.fromARGB(255, 146, 115, 68)
                   : const Color.fromARGB(255, 64, 64, 64),
             ),
@@ -53,7 +53,7 @@ class _FloorPickupState extends State<NotesPickupButtons> {
                 SvgPicture.asset('assets/svgs/notesPickup/source.svg'),
                 const SizedBox(height: 6),
                 const Text(
-                  'Source',
+                  'Station',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15,
@@ -68,8 +68,8 @@ class _FloorPickupState extends State<NotesPickupButtons> {
         CupertinoButton(
           onPressed: () {
             setState(() {
-              notesPickupId = 'floor';
-              widget.onButtonPressed(notesPickupId);
+              coralPickupId = 'floor';
+              widget.onButtonPressed(coralPickupId);
             });
           },
           borderRadius: BorderRadius.circular(16.0),
@@ -80,7 +80,7 @@ class _FloorPickupState extends State<NotesPickupButtons> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
-              color: notesPickupId == 'floor'
+              color: coralPickupId == 'floor'
                   ? const Color.fromARGB(255, 114, 114, 114)
                   : const Color.fromARGB(255, 64, 64, 64),
             ),
@@ -105,8 +105,8 @@ class _FloorPickupState extends State<NotesPickupButtons> {
         CupertinoButton(
           onPressed: () {
             setState(() {
-              notesPickupId = 'both';
-              widget.onButtonPressed(notesPickupId);
+              coralPickupId = 'both';
+              widget.onButtonPressed(coralPickupId);
             });
           },
           borderRadius: BorderRadius.circular(16.0),
@@ -117,7 +117,7 @@ class _FloorPickupState extends State<NotesPickupButtons> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
-              color: notesPickupId == 'both'
+              color: coralPickupId == 'both'
                   ? const Color.fromARGB(255, 202, 122, 48)
                   : const Color.fromARGB(255, 64, 64, 64),
             ),

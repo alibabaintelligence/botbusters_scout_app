@@ -100,6 +100,10 @@ flutter:
     - assets/svgs/notesPickup/both.svg
     # Spotlights
     - assets/svgs/spotlights.svg
+    - assets/svgs/barge/deep.svg
+    - assets/svgs/barge/shallow.svg
+    - assets/svgs/barge/parked.svg
+    - assets/svgs/barge/failed.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

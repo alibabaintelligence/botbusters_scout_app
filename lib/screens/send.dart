@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:botbusters_scout_app/providers/robots_provider.dart';
 import 'package:botbusters_scout_app/widgets/notes_pickup_buttons.dart';
-import 'package:botbusters_scout_app/widgets/spotlight_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -15,7 +13,6 @@ import 'package:botbusters_scout_app/providers/scout_data_provider.dart';
 import 'package:botbusters_scout_app/screens/qr_screen.dart';
 import 'package:botbusters_scout_app/widgets/alliance_buttons.dart';
 import 'package:botbusters_scout_app/widgets/counter_field.dart';
-import 'package:botbusters_scout_app/widgets/driver_skill_buttons.dart';
 import 'package:botbusters_scout_app/widgets/climb_buttons.dart';
 import 'package:botbusters_scout_app/widgets/int_field.dart';
 
@@ -713,6 +710,7 @@ class _SendScreenState extends State<SendScreen> {
                                   ),
                                   const Spacer(),
                                   CounterField(
+                                    key: Key('A'),
                                     max: 9999,
                                     min: 0,
                                     value: _autoAlgaProcessor,
@@ -881,13 +879,12 @@ class _SendScreenState extends State<SendScreen> {
                                       ),
                                       const Spacer(),
                                       CounterField(
-                                        max: 9999,
-                                        min: 0,
-                                        value: _teleopAlgaNet,
+                                        max: 9999, 
+                                        min: 0, 
+                                        value: _teleopAlgaNet, 
                                         whenChanged: (newValue) {
-                                          _teleopAlgaNet = newValue;
-                                        },
-                                      ),
+                                          _teleopAlgaNet = newValue;}
+                                      )
                                     ],
                                   ),
                                   const SizedBox(height: 15),

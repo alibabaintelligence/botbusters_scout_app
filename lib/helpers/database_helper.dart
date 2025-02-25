@@ -73,7 +73,6 @@ abstract class DBHelper {
             redCard BOOLEAN,
             yellowCardMotive TEXT,
             redCardMotive TEXT,
-            driverSkillId TEXT,
             died BOOLEAN,
             tippy BOOLEAN,
             mechFail BOOLEAN,

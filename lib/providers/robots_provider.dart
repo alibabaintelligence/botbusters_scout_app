@@ -61,7 +61,6 @@ class RobotsProvider with ChangeNotifier {
             redCard: robotMap['redCard'] == 0 ? false : true,
             yellowCardMotive: robotMap['yellowCardMotive'],
             redCardMotive: robotMap['redCardMotive'],
-            driverSkillId: robotMap['driverSkillId'],
             died: robotMap['died'] == 0 ? false : true,
             tippy: robotMap['tippy'] == 0 ? false : true,
             mechFail: robotMap['mechFail'] == 0 ? false : true,

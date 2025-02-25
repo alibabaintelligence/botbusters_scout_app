@@ -22,7 +22,6 @@ class RobotMatch {
   final bool redCard;
   final String? yellowCardMotive;
   final String? redCardMotive;
-  final String driverSkillId;
   final bool died;
   final bool tippy;
   final bool mechFail;
@@ -39,15 +38,15 @@ class RobotMatch {
     required this.allianceId,
     required this.leftCommunity,
     required this.autoCoralL1, // !
-    required this.autoCoralL2, 
-    required this.autoCoralL3, 
-    required this.autoCoralL4, 
+    required this.autoCoralL2,
+    required this.autoCoralL3,
+    required this.autoCoralL4,
     required this.autoAlgaProcessor,
-    required this.autoAlgaNet,// !
+    required this.autoAlgaNet, // !
     required this.teleopCoralL1, // !
-    required this.teleopCoralL2, 
-    required this.teleopCoralL3, 
-    required this.teleopCoralL4, 
+    required this.teleopCoralL2,
+    required this.teleopCoralL3,
+    required this.teleopCoralL4,
     required this.teleopAlgaProcessor,
     required this.teleopAlgaNet,
     required this.coralPickupId,
@@ -56,7 +55,6 @@ class RobotMatch {
     required this.redCard,
     required this.yellowCardMotive,
     required this.redCardMotive,
-    required this.driverSkillId,
     required this.died,
     required this.tippy,
     required this.mechFail,
@@ -78,21 +76,20 @@ class RobotMatch {
       'autoCoralL2': autoCoralL2, // !
       'autoCoralL3': autoCoralL3, // !
       'autoCoralL4': autoCoralL4, // !
-      'autoAlgaProcessor' : autoAlgaProcessor,
-      'autoAlgaNet' : autoAlgaNet,
+      'autoAlgaProcessor': autoAlgaProcessor,
+      'autoAlgaNet': autoAlgaNet,
       'teleopCoralL1': teleopCoralL1, // !
       'teleopCoralL2': teleopCoralL2, // !
       'teleopCoralL3': teleopCoralL3, // !
       'teleopCoralL4': teleopCoralL4, // !
-      'teleopAlgaProcessor' : teleopAlgaProcessor,
-      'teleopAlgaNet' : teleopAlgaNet,
+      'teleopAlgaProcessor': teleopAlgaProcessor,
+      'teleopAlgaNet': teleopAlgaNet,
       'coralPickupId': coralPickupId,
       'climbId': climbId,
       'yellowCard': yellowCard ? 1 : 0,
       'redCard': redCard ? 1 : 0,
       'yellowCardMotive': yellowCardMotive,
       'redCardMotive': redCardMotive,
-      'driverSkillId': driverSkillId,
       'died': died ? 1 : 0,
       'tippy': tippy ? 1 : 0,
       'mechFail': mechFail ? 1 : 0,

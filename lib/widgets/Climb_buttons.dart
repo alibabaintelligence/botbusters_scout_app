@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ClimbButtons extends StatefulWidget {
   const ClimbButtons({
@@ -51,7 +50,6 @@ class _ClimbState extends State<ClimbButtons> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                
                 const Text(
                   'Deep Cage',
                   style: TextStyle(
@@ -86,7 +84,6 @@ class _ClimbState extends State<ClimbButtons> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                
                 const Text(
                   'Shallow Cage',
                   style: TextStyle(
@@ -121,7 +118,6 @@ class _ClimbState extends State<ClimbButtons> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-               
                 const Text(
                   'Failed Climb',
                   style: TextStyle(
@@ -190,7 +186,6 @@ class _ClimbState extends State<ClimbButtons> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                
                 const Text(
                   'Not Attempted',
                   style: TextStyle(

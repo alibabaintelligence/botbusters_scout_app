@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:botbusters_scout_app/providers/robots_provider.dart';
-import 'package:botbusters_scout_app/widgets/notes_pickup_buttons.dart';
+import 'package:botbusters_scout_app/widgets/coral_pickup_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -67,8 +67,6 @@ class _SendScreenState extends State<SendScreen> {
   final _yellowCardMotiveController = TextEditingController();
   final _redCardMotiveController = TextEditingController();
 
-  String _driverSkillId = 'notObs';
-
   bool _died = false;
   bool _tippy = false;
   bool _mechFail = false;
@@ -120,7 +118,6 @@ class _SendScreenState extends State<SendScreen> {
         _redCard = editRobotData.redCard;
         _yellowCardMotiveController.text = editRobotData.yellowCardMotive ?? '';
         _redCardMotiveController.text = editRobotData.redCardMotive ?? '';
-        _driverSkillId = editRobotData.driverSkillId;
         _died = editRobotData.died;
         _tippy = editRobotData.tippy;
         _mechFail = editRobotData.mechFail;
@@ -333,7 +330,6 @@ class _SendScreenState extends State<SendScreen> {
                           }
 
                           final robot = RobotMatch(
-                            // id: '${scoutDataProvider.scoutUser!.id}$_allianceId$_finalStatusId$_driverSkillId$_autoTopScored${DateTime.now().toString()}',
                             id: const Uuid().v8(),
                             teamNumber: teamNumber,
                             matchNumber: matchNumber,
@@ -360,7 +356,6 @@ class _SendScreenState extends State<SendScreen> {
                                 : null,
                             redCardMotive:
                                 _redCard ? _redCardMotiveController.text : null,
-                            driverSkillId: _driverSkillId,
                             died: _died,
                             tippy: _tippy,
                             mechFail: _mechFail,
@@ -608,95 +603,100 @@ class _SendScreenState extends State<SendScreen> {
                                 ],
                               ),
                               const SizedBox(height: 15),
-                              Row (
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset('assets/imgs/coral.png',height: 400),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Coral L4',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const ClampingScrollPhysics(),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.asset('assets/imgs/coral.png',
+                                        height: 400),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Coral L4',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
-                                          ),
-                                          CounterField(
-                                            max: 9999,
-                                            min: 0,
-                                            value: _autoCoralL1,
-                                            whenChanged: (newValue) {
-                                              _autoCoralL1 = newValue;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 84),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Coral L3',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
+                                            CounterField(
+                                              max: 9999,
+                                              min: 0,
+                                              value: _autoCoralL1,
+                                              whenChanged: (newValue) {
+                                                _autoCoralL1 = newValue;
+                                              },
                                             ),
-                                          ),
-                                          CounterField(
-                                            max: 9999,
-                                            min: 0,
-                                            value: _autoCoralL2,
-                                            whenChanged: (newValue) {
-                                              _autoCoralL2 = newValue;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 39),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Coral L2',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
+                                          ],
+                                        ),
+                                        const SizedBox(height: 84),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Coral L3',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
-                                          ),
-                                          CounterField(
-                                            max: 9999,
-                                            min: 0,
-                                            value: _autoCoralL3,
-                                            whenChanged: (newValue) {
-                                              _autoCoralL3 = newValue;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 30),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Coral L1',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
+                                            CounterField(
+                                              max: 9999,
+                                              min: 0,
+                                              value: _autoCoralL2,
+                                              whenChanged: (newValue) {
+                                                _autoCoralL2 = newValue;
+                                              },
                                             ),
-                                          ),
-                                          CounterField(
-                                            max: 9999,
-                                            min: 0,
-                                            value: _autoCoralL4,
-                                            whenChanged: (newValue) {
-                                              _autoCoralL4 = newValue;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                          ],
+                                        ),
+                                        const SizedBox(height: 39),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Coral L2',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            CounterField(
+                                              max: 9999,
+                                              min: 0,
+                                              value: _autoCoralL3,
+                                              whenChanged: (newValue) {
+                                                _autoCoralL3 = newValue;
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 30),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Coral L1',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            CounterField(
+                                              max: 9999,
+                                              min: 0,
+                                              value: _autoCoralL4,
+                                              whenChanged: (newValue) {
+                                                _autoCoralL4 = newValue;
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                               const SizedBox(height: 20),
                               Row(
@@ -742,7 +742,6 @@ class _SendScreenState extends State<SendScreen> {
                                 ],
                               ),
                             ],
-                          
                           )
                         : currentTab == Tabs.teleop
                             ? Column(
@@ -756,10 +755,15 @@ class _SendScreenState extends State<SendScreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 15),
-                                  Row (
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: const ClampingScrollPhysics(),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Image.asset('assets/imgs/coral.png',height: 400),
+                                        Image.asset('assets/imgs/coral.png',
+                                            height: 400),
                                         const SizedBox(width: 10),
                                         Column(
                                           children: [
@@ -846,6 +850,7 @@ class _SendScreenState extends State<SendScreen> {
                                         )
                                       ],
                                     ),
+                                  ),
                                   const SizedBox(height: 15),
                                   Row(
                                     children: [
@@ -879,12 +884,12 @@ class _SendScreenState extends State<SendScreen> {
                                       ),
                                       const Spacer(),
                                       CounterField(
-                                        max: 9999, 
-                                        min: 0, 
-                                        value: _teleopAlgaNet, 
-                                        whenChanged: (newValue) {
-                                          _teleopAlgaNet = newValue;}
-                                      )
+                                          max: 9999,
+                                          min: 0,
+                                          value: _teleopAlgaNet,
+                                          whenChanged: (newValue) {
+                                            _teleopAlgaNet = newValue;
+                                          })
                                     ],
                                   ),
                                   const SizedBox(height: 15),
@@ -903,7 +908,6 @@ class _SendScreenState extends State<SendScreen> {
                                     },
                                   ),
                                 ],
-                              
                               )
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1111,11 +1115,11 @@ class _SendScreenState extends State<SendScreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 15),
-                                  NotesPickupButtons(
-                                    notesPickupId: _coralPickupId,
-                                    onButtonPressed: (newNotePickup) {
+                                  CoralPickupButtons(
+                                    coralPickupId: _coralPickupId,
+                                    onButtonPressed: (newCoralPickup) {
                                       setState(() {
-                                        _coralPickupId = newNotePickup;
+                                        _coralPickupId = newCoralPickup;
                                       });
                                     },
                                   ),

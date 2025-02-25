@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 150,
               ),
               const Text(
-                'Scouting App',
+                "Scouting App (Mau's Version)",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,

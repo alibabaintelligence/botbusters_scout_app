@@ -380,11 +380,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              Image.asset(
-                'assets/imgs/prepatec_garzasada_logo.png',
-                height: 50,
-              ),
               const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/imgs/prepatec_garzasada_logo.png',
+                    height: 50,
+                  ),
+                  const SizedBox(width: 10),
+                  Image.asset(
+                    'assets/imgs/reefscape.png',
+                    height: 70,
+                  ),
+                  const SizedBox(width: 25),
+                ],
+              ),
             ],
           ),
         ),

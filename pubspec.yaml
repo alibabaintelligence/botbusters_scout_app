@@ -53,8 +53,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-  flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
 
 flutter_launcher_icons:
   image_path: "assets/icon/icon.png"
@@ -79,8 +79,13 @@ flutter:
     - assets/imgs/prepatec_garzasada_logo.png
     - assets/imgs/field.png
     - assets/imgs/substations.png
+    - assets/imgs/coral.png
+    - assets/imgs/reefscape.png
     # SVGs
     - assets/svgs/x.svg
+    # Climb
+    - assets/svgs/climb/deep.svg
+    - assets/svgs/climb/shallow.svg
     # Driver Skill
     - assets/svgs/driverSkill/notEff.svg
     - assets/svgs/driverSkill/veryEff.svg

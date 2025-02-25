@@ -43,18 +43,20 @@ class RobotsProvider with ChangeNotifier {
             matchNumber: robotMap['matchNumber'],
             allianceId: robotMap['allianceId'],
             leftCommunity: robotMap['leftCommunity'] == 0 ? false : true,
-            autoAmpNotes: robotMap['autoAmpNotes'], // !
-            autoSpeakerNotes: robotMap['autoSpeakerNotes'], // !
-            teleopSpeakerNotes: robotMap['teleopSpeakerNotes'], // !
-            teleopSpeakerNotesX2: robotMap['teleopSpeakerNotesX2'], // !
-            teleopAmpNotes: robotMap['teleopAmpNotes'], // !
-            parked: robotMap['parked'] == 0 ? false : true, // !
-            onstage: robotMap['onstage'] == 0 ? false : true, // !
-            notePickupId: robotMap['notePickupId'], // !
-            spotlight1Id: robotMap['spotlight1Id'], // !
-            spotlight2Id: robotMap['spotlight2Id'], // !
-            spotlight3Id: robotMap['spotlight3Id'], // !
-            noteInTrap: robotMap['noteInTrap'] == 0 ? false : true, // !
+            autoCoralL1: robotMap['autoCoralL1'],
+            autoCoralL2: robotMap['autoCoralL2'],
+            autoCoralL3: robotMap['autoCoralL3'],
+            autoCoralL4: robotMap['autoCoralL4'],
+            autoAlgaProcessor: robotMap['autoAlgaProcessor'],
+            autoAlgaNet: robotMap['autoAlgaNet'],
+            teleopCoralL1: robotMap['teleopCoralL1'],
+            teleopCoralL2: robotMap['teleopCoralL2'],
+            teleopCoralL3: robotMap['teleopCoralL3'],
+            teleopCoralL4: robotMap['teleopCoralL4'],
+            teleopAlgaProcessor: robotMap['teleopAlgaProcessor'],
+            teleopAlgaNet: robotMap['teleopAlgaNet'],
+            climbId: robotMap['climbId'],
+            coralPickupId: robotMap['coralPickupId'],
             yellowCard: robotMap['yellowCard'] == 0 ? false : true,
             redCard: robotMap['redCard'] == 0 ? false : true,
             yellowCardMotive: robotMap['yellowCardMotive'],

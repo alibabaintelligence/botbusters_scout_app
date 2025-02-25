@@ -1,0 +1,2 @@
+C:/Users/mauri/botbusters_scout_app/botbusters_scout_app/android/app/.cxx/Debug/6p4b5c47/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/mauri/botbusters_scout_app/botbusters_scout_app/android/app/.cxx/Debug/6p4b5c47/armeabi-v7a/CMakeFiles/rebuild_cache.dir

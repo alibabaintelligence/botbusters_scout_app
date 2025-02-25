@@ -46,7 +46,7 @@ class QRCodeScreen extends StatelessWidget {
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(5.0),
-              child: QrImage(
+              child: QrImageView(
                 data: data,
                 backgroundColor: Colors.white,
               ),

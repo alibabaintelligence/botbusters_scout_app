@@ -4,18 +4,20 @@ class RobotMatch {
   final int matchNumber;
   final String allianceId;
   final bool leftCommunity;
-  final int autoAmpNotes; // !
-  final int autoSpeakerNotes; // !
-  final int teleopAmpNotes; // !
-  final int teleopSpeakerNotesX2; // !
-  final int teleopSpeakerNotes; // !
-  final bool parked; // !
-  final bool onstage; // !
-  final String notePickupId; // !
-  final String spotlight1Id; // !
-  final String spotlight2Id; // !
-  final String spotlight3Id; // !
-  final bool noteInTrap; // !
+  final int autoCoralL1;
+  final int autoCoralL2;
+  final int autoCoralL3;
+  final int autoCoralL4;
+  final int autoAlgaProcessor;
+  final int autoAlgaNet;
+  final int teleopCoralL1;
+  final int teleopCoralL2;
+  final int teleopCoralL3;
+  final int teleopCoralL4;
+  final int teleopAlgaProcessor;
+  final int teleopAlgaNet;
+  final String coralPickupId; // !
+  final String climbId;
   final bool yellowCard;
   final bool redCard;
   final String? yellowCardMotive;
@@ -36,18 +38,20 @@ class RobotMatch {
     required this.matchNumber,
     required this.allianceId,
     required this.leftCommunity,
-    required this.autoAmpNotes, // !
-    required this.autoSpeakerNotes, // !
-    required this.teleopAmpNotes, // !
-    required this.teleopSpeakerNotesX2, // !
-    required this.teleopSpeakerNotes, // !
-    required this.parked, // !
-    required this.onstage, // !
-    required this.notePickupId, // !
-    required this.spotlight1Id, // !
-    required this.spotlight2Id, // !
-    required this.spotlight3Id, // !
-    required this.noteInTrap, // !
+    required this.autoCoralL1, // !
+    required this.autoCoralL2, 
+    required this.autoCoralL3, 
+    required this.autoCoralL4, 
+    required this.autoAlgaProcessor,
+    required this.autoAlgaNet,// !
+    required this.teleopCoralL1, // !
+    required this.teleopCoralL2, 
+    required this.teleopCoralL3, 
+    required this.teleopCoralL4, 
+    required this.teleopAlgaProcessor,
+    required this.teleopAlgaNet,
+    required this.coralPickupId,
+    required this.climbId,
     required this.yellowCard,
     required this.redCard,
     required this.yellowCardMotive,
@@ -70,18 +74,20 @@ class RobotMatch {
       'matchNumber': matchNumber,
       'allianceId': allianceId,
       'leftCommunity': leftCommunity ? 1 : 0,
-      'autoAmpNotes': autoAmpNotes, // !
-      'autoSpeakerNotes': autoSpeakerNotes, // !
-      'teleopSpeakerNotes': teleopSpeakerNotes, // !
-      'teleopSpeakerNotesX2': teleopSpeakerNotesX2, // !
-      'teleopAmpNotes': teleopAmpNotes, // !
-      'parked': parked ? 1 : 0, // !
-      'onstage': onstage ? 1 : 0, // !
-      'notePickupId': notePickupId, // !
-      'spotlight1Id': spotlight1Id, // !
-      'spotlight2Id': spotlight2Id, // !
-      'spotlight3Id': spotlight3Id, // !
-      'noteInTrap': noteInTrap ? 1 : 0, // !
+      'autoCoralL1': autoCoralL1, // !
+      'autoCoralL2': autoCoralL2, // !
+      'autoCoralL3': autoCoralL3, // !
+      'autoCoralL4': autoCoralL4, // !
+      'autoAlgaProcessor' : autoAlgaProcessor,
+      'autoAlgaNet' : autoAlgaNet,
+      'teleopCoralL1': teleopCoralL1, // !
+      'teleopCoralL2': teleopCoralL2, // !
+      'teleopCoralL3': teleopCoralL3, // !
+      'teleopCoralL4': teleopCoralL4, // !
+      'teleopAlgaProcessor' : teleopAlgaProcessor,
+      'teleopAlgaNet' : teleopAlgaNet,
+      'coralPickupId': coralPickupId,
+      'climbId': climbId,
       'yellowCard': yellowCard ? 1 : 0,
       'redCard': redCard ? 1 : 0,
       'yellowCardMotive': yellowCardMotive,

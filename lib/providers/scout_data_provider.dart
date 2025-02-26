@@ -1,6 +1,13 @@
-import 'package:botbusters_scout_app/classes/scout_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+class ScoutUser {
+  ScoutUser(this.id, this.name);
+
+  final String id;
+  final String name;
+}
+
 
 class ScoutDataProvider with ChangeNotifier {
   ScoutUser? _scoutUser;

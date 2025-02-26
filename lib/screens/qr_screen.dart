@@ -37,45 +37,56 @@ class QRCodeScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 45, 45, 45),
         elevation: 5,
       ),
-      // backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(5.0),
-              child: QrImageView(
-                data: data,
-                backgroundColor: Colors.white,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: (MediaQuery.of(context).size.width - 40.0) > 500
+                    ? 500
+                    : (MediaQuery.of(context).size.width - 40.0),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Data (in text)',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(5.0),
+                    child: QrImageView(
+                      data: data,
+                      backgroundColor: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  for (String key in dataMap.keys)
-                    Text(
-                      '$key: ${dataMap[key]}',
-                      style: const TextStyle(
-                        fontFamily: 'IBM Plex Mono',
-                        color: Colors.white,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Data (in text)',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        for (String key in dataMap.keys)
+                          Text(
+                            '$key: ${dataMap[key]}',
+                            style: const TextStyle(
+                              fontFamily: 'IBM Plex Mono',
+                              color: Colors.white,
+                            ),
+                          ),
+                      ],
                     ),
+                  ),
                 ],
               ),
             ),

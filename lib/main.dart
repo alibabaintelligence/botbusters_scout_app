@@ -6,9 +6,16 @@ import 'package:botbusters_scout_app/screens/send.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:botbusters_scout_app/models/robot_match.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
+  if (!Hive.isAdapterRegistered(0)) {
+    Hive.registerAdapter(RobotMatchAdapter());
+  }
 
   runApp(const BotbustersScoutApp());
 }
@@ -18,30 +25,91 @@ class BotbustersScoutApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ScoutDataProvider>(
-          create: (_) => ScoutDataProvider(),
-        ),
-        ChangeNotifierProvider<RobotsProvider>(
-          create: (_) => RobotsProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Botbusters Scouting App',
-        theme: ThemeData(
-          colorScheme: const ColorScheme.dark(),
-          primarySwatch: Colors.red,
-          fontFamily: 'Inter',
-          platform: TargetPlatform.iOS,
-        ),
-        routes: {
-          '/': (ctx) => const HomeScreen(),
-          SendScreen.routeName: (ctx) => const SendScreen(),
-          SeeScreen.routeName: (ctx) => const SeeScreen(),
-          QRCodeScreen.routeName: (ctx) => const QRCodeScreen(),
-        },
+    return MaterialApp(
+      title: 'Botbusters Scouting App',
+      theme: ThemeData(
+        colorScheme: const ColorScheme.dark(),
+        primarySwatch: Colors.red,
+        fontFamily: 'Inter',
+        platform: TargetPlatform.iOS,
       ),
+      home: const InitializerWidget(),
+    );
+  }
+}
+
+class InitializerWidget extends StatelessWidget {
+  const InitializerWidget({super.key});
+
+  Future<List<ChangeNotifierProvider>> _initializeProviders() async {
+    final robotsProvider = await RobotsProvider.initialize();
+
+    return [
+      ChangeNotifierProvider<ScoutDataProvider>(
+        create: (_) => ScoutDataProvider(),
+      ),
+      ChangeNotifierProvider<RobotsProvider>(
+        create: (_) => robotsProvider,
+      ),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<ChangeNotifierProvider>>(
+      future: _initializeProviders(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return MaterialApp(
+            theme: ThemeData(
+              colorScheme: const ColorScheme.dark(),
+              primarySwatch: Colors.red,
+              fontFamily: 'Inter',
+              platform: TargetPlatform.iOS,
+            ),
+            home: const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.hasError) {
+          return MaterialApp(
+            theme: ThemeData(
+              colorScheme: const ColorScheme.dark(),
+              primarySwatch: Colors.red,
+              fontFamily: 'Inter',
+              platform: TargetPlatform.iOS,
+            ),
+            home: Scaffold(
+              body: Center(
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            ),
+          );
+        }
+
+        return MultiProvider(
+          providers: snapshot.data!,
+          child: MaterialApp(
+            title: 'Botbusters Scouting App',
+            theme: ThemeData(
+              colorScheme: const ColorScheme.dark(),
+              primarySwatch: Colors.red,
+              fontFamily: 'Inter',
+              platform: TargetPlatform.iOS,
+            ),
+            routes: {
+              '/': (ctx) => const HomeScreen(),
+              SendScreen.routeName: (ctx) => const SendScreen(),
+              SeeScreen.routeName: (ctx) => const SeeScreen(),
+              QRCodeScreen.routeName: (ctx) => const QRCodeScreen(),
+            },
+          ),
+        );
+      },
     );
   }
 }
@@ -68,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -85,7 +153,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 20),
               ConstrainedBox(
-                constraints: const BoxConstraints.tightFor(width: 400),
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width > 600
+                      ? 600
+                      : (MediaQuery.of(context).size.width - 40.0),
+                ),
                 child: FutureBuilder<void>(
                   future: _scoutUserFuture,
                   builder: (context, snapshot) {

@@ -64,75 +64,78 @@ class _SeeScreenState extends State<SeeScreen> {
                     elevation: 8,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            const Icon(
-                              Icons.warning_rounded,
-                              color: Colors.amber,
-                              size: 40,
-                            ),
-                            const SizedBox(height: 7),
-                            const Text(
-                              'Delete ALL DATA?',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                      child: SizedBox(
+                        width: 400,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              const Icon(
+                                Icons.warning_rounded,
+                                color: Colors.amber,
+                                size: 40,
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'This action can not be undone.',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13,
+                              const SizedBox(height: 7),
+                              const Text(
+                                'Delete ALL DATA?',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 15),
-                            Row(
-                              children: [
-                                const Spacer(),
-                                CupertinoButton(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: const Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(
-                                        255,
-                                        255,
-                                        117,
-                                        117,
+                              const SizedBox(height: 8),
+                              const Text(
+                                'This action can not be undone.',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              Row(
+                                children: [
+                                  const Spacer(),
+                                  CupertinoButton(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: const Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(
+                                          255,
+                                          255,
+                                          117,
+                                          117,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w600,
                                     ),
+                                    onPressed: () async {
+                                      // ! The user can press the button twice
+                                      // ! Prevent it with some variable _isLoading
+                                      Navigator.of(context).pop(true);
+                                    },
                                   ),
-                                  onPressed: () async {
-                                    // ! The user can press the button twice
-                                    // ! Prevent it with some variable _isLoading
-                                    Navigator.of(context).pop(true);
-                                  },
-                                ),
-                                const Spacer(),
-                                CupertinoButton(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: const Text(
-                                    'No',
-                                    style: TextStyle(
-                                      color: Colors.lightBlueAccent,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w600,
+                                  const Spacer(),
+                                  CupertinoButton(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: const Text(
+                                      'No',
+                                      style: TextStyle(
+                                        color: Colors.lightBlueAccent,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(false);
+                                    },
                                   ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop(false);
-                                  },
-                                ),
-                                const Spacer(),
-                              ],
-                            ),
-                          ],
+                                  const Spacer(),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -197,79 +200,82 @@ class _SeeScreenState extends State<SeeScreen> {
                           elevation: 8,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  const Icon(
-                                    Icons.warning_rounded,
-                                    color: Colors.amber,
-                                    size: 40,
-                                  ),
-                                  const SizedBox(height: 7),
-                                  const Text(
-                                    'Delete this match?',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                            child: SizedBox(
+                              width: 400,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    const Icon(
+                                      Icons.warning_rounded,
+                                      color: Colors.amber,
+                                      size: 40,
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  const Text(
-                                    'This action can not be undone.',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13,
+                                    const SizedBox(height: 7),
+                                    const Text(
+                                      'Delete this match?',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      const Spacer(),
-                                      CupertinoButton(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: const Text(
-                                          'Yes',
-                                          style: TextStyle(
-                                            color: Color.fromARGB(
-                                              255,
-                                              255,
-                                              117,
-                                              117,
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      'This action can not be undone.',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        const Spacer(),
+                                        CupertinoButton(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: const Text(
+                                            'Yes',
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                255,
+                                                255,
+                                                117,
+                                                117,
+                                              ),
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w600,
                                             ),
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w600,
                                           ),
-                                        ),
-                                        onPressed: () async {
-                                          // ! The user can press the button twice
-                                          // ! Prevent it with some variable _isLoading
-                                          matchesProvider.deleteMatch(
-                                            match,
-                                          );
+                                          onPressed: () async {
+                                            // ! The user can press the button twice
+                                            // ! Prevent it with some variable _isLoading
+                                            matchesProvider.deleteMatch(
+                                              match,
+                                            );
 
-                                          Navigator.of(context).pop(true);
-                                        },
-                                      ),
-                                      const Spacer(),
-                                      CupertinoButton(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: const Text(
-                                          'No',
-                                          style: TextStyle(
-                                            color: Colors.lightBlueAccent,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                            Navigator.of(context).pop(true);
+                                          },
                                         ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop(false);
-                                        },
-                                      ),
-                                      const Spacer(),
-                                    ],
-                                  ),
-                                ],
+                                        const Spacer(),
+                                        CupertinoButton(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: const Text(
+                                            'No',
+                                            style: TextStyle(
+                                              color: Colors.lightBlueAccent,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                        ),
+                                        const Spacer(),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -277,62 +283,69 @@ class _SeeScreenState extends State<SeeScreen> {
                       },
                     );
                   },
-                  child: CupertinoButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        SendScreen.routeName,
-                        arguments: match,
-                      );
-                    },
-                    padding: EdgeInsets.zero,
-                    child: Container(
-                      height: 100,
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(22.0),
-                      margin: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                      decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Match ${match.matchNumber}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  fontFamily: 'Inter',
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: (MediaQuery.of(context).size.width - 40.0) > 500
+                          ? 500
+                          : (MediaQuery.of(context).size.width - 40.0),
+                    ),
+                    child: CupertinoButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          SendScreen.routeName,
+                          arguments: match,
+                        );
+                      },
+                      padding: EdgeInsets.zero,
+                      child: Container(
+                        height: 100,
+                        width: 500,
+                        padding: const EdgeInsets.all(22.0),
+                        margin: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Match ${match.matchNumber}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                    fontFamily: 'Inter',
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '$colorName ${match.allianceId.characters.last}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500,
+                                Text(
+                                  '$colorName ${match.allianceId.characters.last}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Text(
-                            '#' + match.teamNumber.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'IBM Plex Mono',
+                              ],
                             ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                        ],
+                            const Spacer(),
+                            Text(
+                              '#' + match.teamNumber.toString(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'IBM Plex Mono',
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

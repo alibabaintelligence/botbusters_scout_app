@@ -53,7 +53,11 @@ packages:
       sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "2.1.2"
+=======
     version: "2.1.1"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   build:
     dependency: transitive
     description:
@@ -149,7 +153,11 @@ packages:
       sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "1.1.2"
+=======
     version: "1.1.1"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   code_builder:
     dependency: transitive
     description:
@@ -165,7 +173,11 @@ packages:
       sha256: a1ace0a119f20aabc852d165077c036cd864315bd99b7eaa10a60100341941bf
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "1.19.1"
+=======
     version: "1.19.0"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   convert:
     dependency: transitive
     description:
@@ -452,7 +464,11 @@ packages:
       sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "1.16.0"
+=======
     version: "1.15.0"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   mime:
     dependency: transitive
     description:
@@ -745,7 +761,11 @@ packages:
       sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "2.1.4"
+=======
     version: "2.1.2"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   stream_transform:
     dependency: transitive
     description:
@@ -761,7 +781,11 @@ packages:
       sha256: "688af5ed3402a4bde5b3a6c15fd768dbf2621a614950b17f04626c431ab3c4c3"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "1.4.1"
+=======
     version: "1.3.0"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   term_glyph:
     dependency: transitive
     description:
@@ -777,7 +801,11 @@ packages:
       sha256: "664d3a9a64782fcdeb83ce9c6b39e78fd2971d4e37827b9b06c3aa1edc5e760c"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "0.7.4"
+=======
     version: "0.7.3"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   timing:
     dependency: transitive
     description:
@@ -841,7 +869,11 @@ packages:
       sha256: f6be3ed8bd01289b34d679c2b62226f63c0e69f9fd2e50a6b3c1c729a961041b
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "14.3.1"
+=======
     version: "14.3.0"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   watcher:
     dependency: transitive
     description:
@@ -899,5 +931,9 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
+<<<<<<< HEAD
+  dart: ">=3.7.0-0 <4.0.0"
+=======
   dart: ">=3.6.0 <4.0.0"
+>>>>>>> 863dc0a9102e2098f91c65ec5e69a9cf3a5ba499
   flutter: ">=3.24.0"

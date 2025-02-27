@@ -651,9 +651,9 @@ class _SendScreenState extends State<SendScreen> {
                                                   CounterField(
                                                     max: 9999,
                                                     min: 0,
-                                                    value: _autoCoralL1,
+                                                    value: _autoCoralL4,
                                                     whenChanged: (newValue) {
-                                                      _autoCoralL1 = newValue;
+                                                      _autoCoralL4 = newValue;
                                                     },
                                                   ),
                                                 ],
@@ -672,9 +672,9 @@ class _SendScreenState extends State<SendScreen> {
                                                   CounterField(
                                                     max: 9999,
                                                     min: 0,
-                                                    value: _autoCoralL2,
+                                                    value: _autoCoralL3,
                                                     whenChanged: (newValue) {
-                                                      _autoCoralL2 = newValue;
+                                                      _autoCoralL3 = newValue;
                                                     },
                                                   ),
                                                 ],
@@ -693,9 +693,9 @@ class _SendScreenState extends State<SendScreen> {
                                                   CounterField(
                                                     max: 9999,
                                                     min: 0,
-                                                    value: _autoCoralL3,
+                                                    value: _autoCoralL2,
                                                     whenChanged: (newValue) {
-                                                      _autoCoralL3 = newValue;
+                                                      _autoCoralL2 = newValue;
                                                     },
                                                   ),
                                                 ],
@@ -714,9 +714,9 @@ class _SendScreenState extends State<SendScreen> {
                                                   CounterField(
                                                     max: 9999,
                                                     min: 0,
-                                                    value: _autoCoralL4,
+                                                    value: _autoCoralL1,
                                                     whenChanged: (newValue) {
-                                                      _autoCoralL4 = newValue;
+                                                      _autoCoralL1 = newValue;
                                                     },
                                                   ),
                                                 ],
@@ -811,10 +811,10 @@ class _SendScreenState extends State<SendScreen> {
                                                       CounterField(
                                                         max: 9999,
                                                         min: 0,
-                                                        value: _teleopCoralL1,
+                                                        value: _teleopCoralL4,
                                                         whenChanged:
                                                             (newValue) {
-                                                          _teleopCoralL1 =
+                                                          _teleopCoralL4 =
                                                               newValue;
                                                         },
                                                       ),
@@ -834,10 +834,10 @@ class _SendScreenState extends State<SendScreen> {
                                                       CounterField(
                                                         max: 9999,
                                                         min: 0,
-                                                        value: _teleopCoralL2,
+                                                        value: _teleopCoralL3,
                                                         whenChanged:
                                                             (newValue) {
-                                                          _teleopCoralL2 =
+                                                          _teleopCoralL3 =
                                                               newValue;
                                                         },
                                                       ),
@@ -857,10 +857,10 @@ class _SendScreenState extends State<SendScreen> {
                                                       CounterField(
                                                         max: 9999,
                                                         min: 0,
-                                                        value: _teleopCoralL3,
+                                                        value: _teleopCoralL2,
                                                         whenChanged:
                                                             (newValue) {
-                                                          _teleopCoralL3 =
+                                                          _teleopCoralL2 =
                                                               newValue;
                                                         },
                                                       ),
@@ -880,10 +880,10 @@ class _SendScreenState extends State<SendScreen> {
                                                       CounterField(
                                                         max: 9999,
                                                         min: 0,
-                                                        value: _teleopCoralL4,
+                                                        value: _teleopCoralL1,
                                                         whenChanged:
                                                             (newValue) {
-                                                          _teleopCoralL4 =
+                                                          _teleopCoralL1 =
                                                               newValue;
                                                         },
                                                       ),
